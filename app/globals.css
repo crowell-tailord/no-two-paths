@@ -18,10 +18,69 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-weight: 300;
+}
+
+h1 {
+  @apply text-3xl;
+  @apply uppercase;
+  font-weight: 500;
+}
+
+input {
+  background: black;
+  border: 1px solid white;
+}
+
+a:hover {
+  @apply text-red-600;
+}
+
+.popup-content p {
+  margin-bottom: 1em;
+}
+
+.animate-ellipsis::after {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  left: 60%;
+  animation: ellipsis 1200ms infinite linear;
+}
+
+@keyframes ellipsis {
+  0% {
+    content: '';
+  }
+
+  25% {
+    content: "."
+  }
+
+  50% {
+    content: ".."
+  }
+
+  75% {
+    content: "..."
+  }
+
+  100% {
+    content: ''
+  }
+}
+
+.animate-close {
+  animation: close 300ms ease;
+  animation-iteration-count: 1
+}
+
+@keyframes close {
+  from {
+    opacity: 1
+  }
+
+  to {
+    opacity: 0
+  }
 }

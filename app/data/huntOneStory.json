@@ -1,0 +1,707 @@
+{
+    "Assault": {
+        "description": "Take the defenses head on and ambush the compound entry with the full force of your unit. There may be casualties but the best path forward is to go straight through.<br /> <br />Warning: Contains detailed descriptions of violence and gore that some people may find offensive.",
+        "steps": [
+            {
+                "id": 1,
+                "imageUrl": "stairway.jpg",
+                "text": "The entrance to the underground compound lays hidden on the side at the top of the stairway, amongst what seems to be an unassuming grassy area full of shrubs and bushes. You find yourself already outnumbered as a group of ghouls are wandering aimlessly by it, probably unaware as to why they're even there in the first place.<br /> <br />Regardless they seem to be unarmed.<br /> <br />What will you do?",
+                "choices": [
+                    {
+                        "text": "Draw your weapon and face them head on as you make your way up the steps.",
+                        "odds": [
+                            0.99,
+                            0.01,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "Immediately after drawing your weapon you take out the first one, the poor bastard that wandered a bit too close to the edge of the steps, with a clean shot. As he rolls down the stairs the thumping noises of his flesh hitting the cement creates a commotion amongst the others who have now spotted you and have begun the charge.<br /><br />Luckily for you not all ghouls are built the same, and 2 of them end up clumsily rolling down the steps past you. The couple that stood atop awaiting for you get disposed of swiftly by your rifle long before you reach them, allowing you to calmly make your way back down and eliminate the two that rolled past you, now mauled and hurt on the floor.<br /> <br />The last one, the remnants of what you can clearly see was once a beautiful lady in her twenties, stares at you angrily. Right before you pull the trigger she gasps for air and lets go of a deafening guttural howl that lingered even after you blew her now splattered on the floor brains.<br /> <br />Unfortunately you now realise that what you thought was the echo of her has now become louder and louder and coming from all directions. There's no time to stick around and find out what's coming.<br /> <br />RUN REBEL!",
+                                "next": 2
+                            },
+                            {
+                                "name": "fail",
+                                "text": "Immediately after drawing your weapon you aim and take a shot at the ghoul closer to the top of the steps. Unfortunately the little training you've does not prove to be enough for this and you miss, now alerting all of their party, who are now charging down the stairs.<br /> <br />As you start to shoot back, now in fully automatic, you do hit a your mark and take a couple of them down. As you swiftly turn your head a few degrees to take aim at the rest and start firing at the rest you seem to forget the fact that even the now deceased ones are rolling down the stairs directly towards you. Filled up with adrenaline and fear, focusing only on the ones that are growling as they get closer, one of the deceased bodies hits you like a rolling boulder and knocks you down.<br /> <br />This gives enough time for the rest of their crew to catch up to you, take your weapons of you and take you into the complex captive.<br /> <br />We are unsure as to why they didn't tear you to pieces, but we will do our best to get you out of there.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Long range assault.",
+                        "odds": [
+                            0.99,
+                            0.01,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "You dig into your tool set and pull out a x3 times scope and attach it to the top of your rifle. There may be more of them but you definitely have the bullets to compensate. Regardless your objective here is pure accuracy and destruction. You find yourself an elevated position in one of the adjacent buildings and after a few seconds of planning your escape routes you take your first shot.<br /> <br />A clean hit. The ghoul falls dead to the group instantly as the rest of his crew looks around confused as to where that came from.<br /> <br />Second shot: clean hit again. At this point the group seems to be more concerned that upset about the loss of their 'friends' and start to slowly scramble around. Third and Fourth shot are also clean hits, they're fleeing and leaving the access point completely empty. Or so you thought.<br /> <br />After you climb the steps to your surprise you realise that the first one was still alive, or whatever state these rot brains live in, and trying to crawl slowly towards you. As you get close and about to put the disgusting creature out of it's misery the creature gasps for air and lets go of a deafening guttural howl that lingered even after you blew her now splattered on the floor brains.<br /> <br />Unfortunately you now realise that what you thought was the echo of her has now become louder and louder and coming from all directions. There's no time to stick around and find out what's coming.",
+                                "next": 2
+                            },
+                            {
+                                "name": "fail",
+                                "text": "You dig into your tool set and pull out a x3 times scope and attach it to the top of your rifle. There may be more of them but you definitely have the bullets to compensate. Regardless your objective here is pure accuracy and destruction. You find yourself an elevated position in one of the adjacent abandoned buildings and after a few seconds of planning your escape routes you take your first shot.<br /> <br />A miss. Your aim was way off and you end up hitting the side of the shrine entrance atop the steps. Ghouls look confused and start to look around trying to identify the threat. You need to get your shit together rebel.<br /> <br />A second shot is fired: another miss. And this time it spelled trouble. One of them was gazing roughly in your direction and managed to see the flash of your muzzle. With a growl reminiscent of a bear more than a human it led the charge towards the abandoned building.<br /> <br />You collect your gear as quickly as possible, unfortunately by the time you're done you can feel a couple of them already coming up the stairs. You check outside one of the balconies in hope to be able to jump down and make a run for it but to your surprise you find that at least two dozen of them have congregated at street level almost like waiting for you to try and escape.<br /> <br />There's no way out. You're completely trapped.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "imageUrl": "manhole.jpg",
+                "text": "You rush up the steps and make your way through the shrub and bushes and uncover the entrance. A large manhole that seems to be connected to the old city sewer system. You know this is the right spot as it is covered with blood, claw marks and what seems to be some sort of organic matter. We better don't even try to find out what that is for the time being.<br /> <br />It may be old and rusted but it seems to be completely locked from the inside and no other access point are visible to you as of right now. As you realise that you're at a dead end you start to hear the howls of the ghouls of the area get closer and closer, you need to hurry up.<br /> <br />What will you do?",
+                "choices": [
+                    {
+                        "text": "Use the grenades you were provided with and try to blow it up.",
+                        "odds": [
+                            0.98,
+                            0.02,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "As the howls get closer and closer you suddenly remember about the extra equipment you got given at the mission briefing. Part of it, a set of XM-05L grenades, capable of blowing through the strongest stainless steel.<br /> <br />As useful as these are you remember you remember your training: you must stay away from the explosion area at least 20 meters or find adjacent cover, as they're designed to blast into a very specific point with intense power and causing the that gets hit to shatter into thousands of shrapnel pieces.<br /> <br />You place all of them down by the covered manhole unarmed and take one with you. As you start to make your way out of the overgrown bushy area where the entrance is hidden you find yourself spotted by a lonely ghoul that seemed to be investigating what happened to their now deceased kin. This one seems to be more aware of and conscious than the previous bunch you fought and as he realises you're coming from the compound entrance he runs past you as if to check that everything over there is still as intended.<br /> <br />This is your chance. You arm your grenade, set yourself behind the corner for cover and lob your grenade hoping to land it as close as possible to the manhole.<br /> <br />It did.  As you walk towards the now gaping hole on the ground, drops of blood and debris are raining from above. At least that poor bastard went without pain.",
+                                "next": 3
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As the howls get closer and closer you suddenly remember about the extra equipment you got given at the mission briefing. Part of it, a set of XM-05L grenades, capable of blowing through the strongest stainless steel.<br /> <br />Unfortunately your training did wasn't as extensive as you it probably needed to be and you decide to step away a few meters before arming and throwing one directly to the manhole. These grenades are well known for injuring those that use them carelessly. Every rebel that's worth a damn knows that you must stay away from the explosion area at least 20 meters or find adjacent cover, as they're designed to blast into a very specific point with intense power causing the target that gets hit to shatter into thousands of shrapnel pieces.<br /> <br />The very own that are now flying at you at a supersonic speed.<br /> <br />You fall to the ground, wounded, a thousand cuts and a few holes, but somehow no vital areas damaged.<br /> <br />The explosion however attacked the very ghouls that were investigating what happened to their now deceased kin and after growling and what seemed to be taunting you, they take you inside the now blown to pieces manhole.<br /> <br />We will get you out rebel, sooner or later. Just hold strong.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Face the new group of ghouls at the fight scene and make as much noise as possible to see if anyone comes out of the entrance.",
+                        "odds": [
+                            0.97,
+                            0.03,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "Realising that you cannot breach through the covered manhole you decide to take a more frontal - and perhaps suicidal - approach.<br /> <br />The large group of ghouls that gathered at the steps investigating where the howling came from is now making their way up the steps and getting closer. Like a trapped animal you decide to stand your ground and fight until the last bullet casket drops from your rifle.<br /> <br />As your see their silhouette drag themselves past the bushes you take hold of one of the XM-05L grenades that you received during the mission briefing, arm it and timely lob it above the bushes in hopes to take as many of them as possible before starting to fire.<br /> <br />The accuracy of your throw was admirable and the blast turns the majority of them into a puddle of guts and gunk.<br /> <br />As you get your rifle ready to fire at the remaining ones you hear the lock mechanism from the entrance activate. A fully geared up ghoul wearing the remains of what once was a rebel Hunter Predator armour set props his head out, just in time to meet the muzzle of your rifle.  Without a second thought you add another layer of blood and guts to the already covered entrance and slide yourself in just in time to lock the remaining ghouls out of it.<br /> <br />You are in.",
+                                "next": 3
+                            },
+                            {
+                                "name": "fail",
+                                "text": "Realising that you cannot breach through the covered manhole you decide to take a more frontal - and perhaps suicidal - approach.<br /> <br />The large group of ghouls that gathered at the steps investigating where the howling came from is now making their way up the steps and getting closer. Like a trapped animal you decide to stand your ground and fight until the last bullet casket drops from your rifle.<br /> <br />As your see their silhouette drag themselves past the bushes you take hold of one of the XM-05L grenades that you received during the mission briefing, arm it and timely lob it above the bushes in hopes to take as many of them as possible before starting to fire.<br /> <br />Unfortunately your throw is weaker than a little leagues baseball player and falls short, hitting the branch of one of the many trees that cover the area and bouncing to a completely empty area.<br /> <br />Your disappointment is notable as you loudly curse giving away your location and causing the group to rush at you. You manage to take your rifle out and take a few of them out but in the middle of the commotion you fail to notice that the manhole, once closed, is now wide open.<br /> <br />A fully geared out ghoul wearing what once was a rebel Hunter Predator armour set is standing between you and the entrance.  It swiftly disarms you and knocks you down. The whole group immobilizes you and takes you inside captive.<br /> <br />Once we rescue you we will make sure you get proper training (and perhaps some throwing lessons).",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "imageUrl": "hallway.jpg",
+                "text": "This place clearly was once a sewer.  The stench in the air is unequivocal, despite the efforts to turn it into what seemed to be now some sort of bunker. Definitely not any kind of bunker you have seen before. Despite never stepping a foot inside one of their compounds or buildings you can tell this is a Karoshi built structure. No other corporation in the city could afford to create something of this high grade.<br /> <br />But why here? Why under the city? What are they hiding exactly? Why a ghoul of all things was guarding it?<br /> <br />You make your way through the dim blue lit halls, as your footsteps echo behind you. You know you're alone, yet this incredibly strong feeling of being watched takes over you and kicks your nervous system on high alert.<br /> <br />As your eyes get used to the darkness your body brings you to a sudden stop. Your instincts were right. Far in the distance, deep in the darkness of the hallway ahead of you, the silhouette of a person.<br /> <br />Before you have any time to understand what or who it is,  the shadowy figure draws what appears to be a Katana at the same time it starts to charge towards you at an amazing speed - yet - in total silence. As it gets closer his weapon starts to emit an extremely powerful electric charge, strong enough for you to see it flowing in the air around it, like miniature lightings, one after another, illuminating the area where he is for a split second before wrapping it's carrier in shadows again. Every time it flashes you can see it get closer, with only the sound of energy charged weapon crackling through the air.<br /> <br />You need to take action now.",
+                "choices": [
+                    {
+                        "text": "Pull out your melee weapon and fight him head on!",
+                        "odds": [
+                            0.95,
+                            0.05,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "After a few seconds you take the foolish decision of accepting whatever this thing is challenge. Drawing your own katana, a clear downgrade from the one this entity is carrying, you charge forward with a loud yell in hopes to hide your fear.<br /> <br />Your blades meet and the loud jangle of the carefully crafted steel resonates throughout the whole compound, almost like the bell in a fighting match. As you both struggle and get closer to each other, blades still met and struggling for control, you realise that you have seen something like this before.<br /> <br />His armour. This was not a regular ghoul, or a deceased hunter... no. This type of gear seemed to be more like what the elite soldiers from the old Tokyo used to wear.  The very own that corporations like Karoshi pushed to get rid of long ago as they were deemed 'unnecessary' and a risk for the freedom of the citizens. This was TEN armour, or part of it at least. Yet whatever was inside, as impressive as it was, would have never been a match for one of them.<br /> <br />With a sudden trust of confidence and filled with desires of revenge at the sight of the armour that clearly was part of one of the secretive TEN, you decide that it's enough of games. Fuck honour, fuck pride. You draw your energy pistol from your side and blow it's leg off with one accurate shot. As it falls to the ground,  still without making any sound, with a swift and decisive motion you cut it's head off.<br /> <br />Whatever this was it was very much alive and very much human, as the stream of blood that turned the steel floors into a puddle indicated. You take his sword and swear to come back for the armour as you move on.",
+                                "next": 4
+                            },
+                            {
+                                "name": "fail",
+                                "text": "After a few seconds you take the foolish decision of accepting whatever this thing is challenge. Drawing your own katana, a clear downgrade from the one this thing is carrying, you charge forward with a loud yell in hopes to hide your fear.<br /> <br />Your blades meet and the loud jangle of the carefully crafted steel resonates throughout the whole compound, almost like the bell in a fighting match. As you both struggle and get closer to each other, blades still met and struggling for control, you realise that you have never seen something like this before.<br /> <br />His armour. This was not a regular ghoul, or a deceased hunter... no. This type of gear seemed to be more like what the elite soldiers from the old Tokyo used to wear.  The very own that corporations like Karoshi pushed to get rid of long ago as they were deemed 'unnecessary' and a risk for the freedom of the citizens. This was TEN armour, or part of it at least. Yet whatever was inside, as impressive as it was, would have never been a match for one of them.<br /> <br />Unfortunately you're not one of the TEN, and this proved to be way too much of a challenge for you. In total silence you get overpowered almost instantly. Your opponent is not only stronger but has a way better sense of balance than you and is able to drop you to your knees in a matter of seconds. Once disarmed you get knocked out and taken away by it.<br /> <br />Apparently the threat is higher than we anticipated. Will gather up the remaining TEN and make sure they turn that bunker into a graveyard.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Who brings a knife to a gun fight?",
+                        "odds": [
+                            0.98,
+                            0.02,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "As intimidating as the figure is you can't stop but to think about the old saying: Never bring a knife to a gun fight'.<br /> <br />You take a knee and after a few seconds fire a burst of shots towards his legs. His armour seemed to be unscathed but as you keep firing you manage to land one shot between the junctions of the armoured plate, penetrating into it's body and prompting it to fall face down on the floor a few meters away from you.<br /> <br />As you get closer you notice something. His armour. This was not a regular ghoul, or a deceased hunter... no. This type of gear seemed to be more like what the elite soldiers from the old Tokyo used to wear.  The very own that corporations like Karoshi pushed to get rid of long ago as they were deemed 'unnecessary' and a risk for the freedom of the citizens. This was TEN armour, or part of it at least. Yet whatever was inside, as impressive as it was, would have never been a match for one of them.<br /> <br />With a sudden trust of confidence and filled with desires of revenge at the sight of the armour that clearly was part of one of the secretive TEN, you decide that it's enough of games. You pull its armoured helmet out and find a regular human yelling and begging for mercy. A Karoshi security employee who got sent to it's death. In anger you mutter that there clearly was no pity for whoever armour this once belonged to, so there shall be none for you either.<br /> <br />You stab his throat with his own sword to the point that you can smell his flesh cooking. We need to figure out what's going on.",
+                                "next": 4
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As intimidating as the figure is you can't stop but to think about the old saying: Never bring a knife to a gun fight'.<br /> <br />You take a knee and after a few seconds fire a burst of shots to at his legs in hopes to get him down. Nothing, he's getting closer. You start to get nervous and change to fully auto. Magazine after magazine all you hear is the clashing of your bullets against his armour and yet it isn't stopping.<br /> <br />It is too late.<br /> <br />As you try to draw your pistol it slices your hand off in what seemed to be a supernatural speed for anyone this size. You instantly fall to the ground next to your sliced off hand that's still holding onto your energy pistol. The creature, whatever it was, seems to be mocking you from inside it's helmet.<br /> <br />As he gets closer once again you notice something. His armour. This was not a regular ghoul, or a deceased hunter... no. This type of gear seemed to be more like what the elite soldiers from the old Tokyo used to wear.  The very own that corporations like Karoshi pushed to get rid of long ago as they were deemed 'unnecessary' and a risk for the freedom of the citizens. This was TEN armour, or part of it at least. Yet whatever was inside, as impressive as it was, would have never been a match for one of them, or at least you'd like to believe.<br /> <br />You're filled with anger at the realisation. Whatever is hiding inside these bunkers clearly was able to salvage this from one of the TEN. Does that mean that they're stronger?<br /> <br />I hope we can get you out of there eventually rebel. Stay strong.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "imageUrl": "storage.jpg",
+                "text": "After what felt like an eternity of walking through dark halls you find yourself at the entrance of what seems to be an elevated path walk above a large storage area. The place is virtually empty besides two fully geared ghouls with rifles and armour who are keeping guard of at least 15 industrial scale crates fully sealed and displaying the Karoshi logo on the sides and a man wearing the extremely well known and recognizable uniform who's filling up the last of the large crates with smaller yellow coloured containers.<br /> <br />From your advantage point you can see a the door with the words 'Genetic Testing Environment. Only authorized personnel allowed entry past this point' . There's no way to gain access to it without a fight.<br /> <br />As you start to device a plan of action the alarm system of the compound goes off and the doors between the halls you came from and the storage area close shut behind you. There's no turning back now and you have to think on the fly. Soon this room will be filled with more of those things and you won't stand a chance.<br /> <br />What will you do?",
+                "choices": [
+                    {
+                        "text": "Cause chaos: Shoot at the crates!",
+                        "odds": [
+                            0.99,
+                            0.01,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "The alarm is deafening and you can feel on the thin steel plates of the floor the rumbling of more feet coming from the hallway you left behind. As you take one last look at the room you see the flammable signs on the containers the scientists, who is now making his way to the Genetic Testing area with a clumsy trot, has been placing carefully on the large crates.<br /> <br />Both guards are on the process of closing the large solid iron gates and so you take your shot.<br /> <br />The explosion was nothing like you've ever seen before. The large container managed to withstand it almost unfazed, on the other hand the two guards got vaporized in an instant as all the energy released left the crate through the open doors the same way a bullet gets shot out of the barrel.<br /> <br />The explosion caused the scientist to fall to the group in panic and fear. You take advantage of this and jump down into the main storage area and land smoothly right in front of the lab doors. Confused and in a daze the scientist is not able to even mutter a word out and just watches as you remove his ID card that allows him to pass through the security system and drag him into the lab with you.<br /> <br />Once inside you ask him if there's a way out of there or any sort of communication system. He explains that there isn't to his knowledge as he's been down in the compound against his will for many years.<br /> <br />After realising that it's not worth to kill someone who's already dead you just nod at him and make your way past the lab, there has to be a place where you can find out where are the missing rebels.",
+                                "next": 5
+                            },
+                            {
+                                "name": "fail",
+                                "text": "The alarm is deafening and you can feel on the thin steel plates of the floor the rumbling of more feet coming from the hallway you left behind. As you take one last look at the room you see the flammable signs on the containers the scientists, who is now making his way to the Genetic Testing area with a clumsy trot, has been placing carefully on the large crates.<br /> <br />Both guards are on the process of closing the large solid iron gates and so you feel like your time is running out. You jump down the balcony and as you land in front of the crate you instantly aim your shot between both guards and shot.<br /> <br />Just like the barrel of your rifle the energy from the explosion shoots out of the crate, which amazingly was able to resist it pretty much undamaged, like a bullet towards you. With a force you have never felt before the shockwave sends you flying backwards into the concrete walls causing you to black out instantly. At least you got rid of the two guards, who got completely vaporized in the process.<br /> <br />Is only a guessing game what happened to you after that.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Take down the guards without hitting the crates and use scientist as human shield if needed.",
+                        "odds": [
+                            0.97,
+                            0.02,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "The alarm is deafening and you can feel on the thin steel plates of the floor the rumbling of more feet coming from the hallway you left behind. As you take one last look at the room you see the flammable signs on the containers the scientists, who is now making his way to the Genetic Testing area with a clumsy trot, has been placing carefully on the large crates.<br /> <br />It's probably best to not get a bullet anywhere near those.<br /> <br />Once again you have no choice but to face them head on. With a decisive step you walk back enough to catch a bit of a sprint and jump as close as possible to the scientist as you can in hopes of using him as a human shield and gain access to where you need to go.<br /> <br />As you land the guards instantly see you and stop their efforts to close the gate and go after you. You avoid their shots miraculously and manage to catch up to the scientist who has now managed to open the door. As you run past him, you turn around and grab him whilst pointing your energy pistol to his head. The two guards stop on their tracks instantly, yet... they seem amused. As one keeps giggling to himself the other one slowly raises his rifle, you can see his laser pointer crawl from the chest of the scientist all the way up to his forehead almost like caressing him in a cruel teasing game. You realise they're not bluffing and if he gets shot their bullets will definitely go through his skull and into you. You whisper a quiet 'Please forgive me' to the terrified man and pretend to slowly put your gun down.. but as you do you press it against your now human shield back and shoot your gun at max power instantly blowing to pieces half of one of the guards bodies. The shock in second guard is palpable as he just stands there watching, as you hold what little is left of the scientist body. Giving you enough time to quickly take aim at him and blast him into limbo.<br /> <br />Covered in blood and sweat, and utterly exhausted, you make your way deeper into the compound.",
+                                "next": 5
+                            },
+                            {
+                                "name": "fail",
+                                "text": "The alarm is deafening and you can feel on the thin steel plates of the floor the rumbling of more feet coming from the hallway you left behind. As you take one last look at the room you see the flammable signs on the containers the scientists, who is now making his way to the Genetic Testing area with a clumsy trot, has been placing carefully on the large crates.<br /> <br />It's probably best to not get a bullet anywhere near those.<br /> <br />Once again you have no choice but to face them head on. With a decisive step you walk back enough to catch a bit of a sprint and jump as close as possible to the scientist as you can in hopes of using him as a human shield and gain access to where you need to go.<br /> <br />As you land the guards instantly see you and stop their efforts to close the gate and go after you. You avoid their shots miraculously and manage to catch up to the scientist who has now managed to open the door. As you run past him, you turn around and grab him whilst pointing your energy pistol to his head. The two guards stop on their tracks instantly, yet... they seem amused. As one keeps giggling to himself the other one slowly raises his rifle, you can see his laser pointer crawl from the chest of the scientist all the way up to his forehead almost like caressing him in a cruel teasing game.<br /> <br />You call their bluff and start to make your way into the room naively thinking this man is of any importance to them. They proceed to open fire, instantly tearing to pieces your human shield and gravely wounding you in the process. Barely alive, you're being taken away by a whole security squad before you black out.<br /> <br />In our world most of the times we have to shoot first and ask questions later. That is if you even want to live long enough to ask anything at all.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "imageUrl": "control.jpg",
+                "text": "After navigating through the endless hallways, avoiding enemies and taking out lone guards on their way to their emergency positions, you find the entrance to what seems to be a control room completely full of Karoshi personnel pacing around and doing check-ups in all sectors on their screens. There seems to be a mix of engineers and scientists, all unarmed, except for the small platoon of ghouls guarding the entry.<br /> <br />If you gained access to their consoles there's a good chance that you could find out the whereabouts of the missing rebels.<br /> <br />If only there was a way to get the room emptied and the ghouls cleared.",
+                "choices": [
+                    {
+                        "text": "Divide and Conquer",
+                        "odds": [
+                            0.98,
+                            0.02,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "The only way in to get into that room in one piece according to your calculations is by luring the platoon of ghouls away from it and then taking the inside by force if necessary.<br /> <br />You get your TRC-Rebel2.3v Drone and make sure to arm it with a large enough amount of explosives to take care of all the ghouls.<br /> <br />As you deploy it and start gliding towards them you realise that the explosion will end up damaging the equipment inside the room so you sway it in front of the ghouls in a taunting manner until all of them are fixated on it and start chasing it as it flies away from the door. Once far enough, in a dead end corridor the charge is detonated instantly frying the fuckers.<br /> <br />After clearing the halls behind you making sure no one else is on it's way you rush into the control room and start to push and yell for everyone to get out except one of them. As you find yourself finally alone with the lone engineer you tell him to lock all the doors and give you access to the system before he ends up sharing the same fate as his former security guards. The engineer agrees without hesitation but begs you to please let him go and you comply.<br /> <br />Now you are free to navigate through their systems and find the whereabouts of your missing comrades.",
+                                "next": null
+                            },
+                            {
+                                "name": "fail",
+                                "text": "The only way in to get into that room in one piece according to your calculations is by luring the platoon of ghouls away from it and then taking the inside by force if necessary.<br /> <br />You get your TRC-Rebel2.3v Drone and make sure to arm it with a large enough amount of explosives to take care of all the ghouls.<br /> <br />As you deploy it and start gliding towards them you realise that the explosion will end up damaging the equipment inside the room so you sway it in front of the ghouls in a taunting manner until all of them are fixated on it and start chasing it as it flies away from the door. What seemed like an very easy and clear plan however was too good to be true as one of the ghouls displays incredible accuracy and shoots down the drone before it even gets close to them, detonating the charge closer to you than to them.<br /> <br />The impact causes you to groan in pain and giving away your location and in no time you are surrounded.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Fire and Smoke",
+                        "odds": [
+                            0.98,
+                            0.02,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "As you stand as close as you can to the doorway without being spotted  you investigate your surroundings in hopes of finding a way to create a distraction that lasts long enough to either take the platoon by surprise.<br /> <br />Door to the control room seems to be bullet proof, that might be useful. Security alarm is already going off so that's a no go. Electrics? There's panels around but you have no idea which live lines would kill the power. What about a fire? You scan the ceilings and spot the panels where the CO2 extinguishers would appear from. There's one right at the end of the hall in front of the platoon that could create the perfect dust wall for you to engage from.<br /> <br />You pull out your knife and remove one of the panels of the wall uncovering a bundle of wires. The only way to cause them to short is by using your energy pistol at it's lowest power, that should do the trick.<br /> <br />After praying that you chose correctly which wires to burn that won't have any negative effect on the systems over at the control room, with a single carefully  placed shot you burn a handful of them and wait as the smoke starts rising alongside the corridor and fire starts expanding inside the walls.  After a couple of minutes it does the job.<br /> <br />The sound of all the retractable panels activating at once definitely alerts the platoon of ghouls but by the time they understand what is going on it is too late. All the hallways in the vicinity get filled by streams of powdered CO2 reducing visibility to basically zero.<br /> <br />You sprint down the hallway after memorizing previously the rough location of all the ghouls. You can hear the control room door opening and the steps of the people that were inside rush out in panic. After releasing a few shots and hoping they hit their mark you decide that the best option is to get inside that room and lock it from the inside. And so you do. Using the chaos and the low visibility you push a couple of the ghouls out of the way, who seemed to be completely unaware of you being an enemy due to the chaos. Right before the door gets locked and as the smoke powder starts to settle you take out the few remaining ghouls right by the door, right from behind them. And lock yourself in.<br /> <br />It is a race against time now rebel, find the whereabouts of your comrades before someone else finds you!",
+                                "next": null
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As you stand as close as you can to the doorway without being spotted you investigate your surroundings in hopes of finding a way to create a distraction that lasts long enough to either take the platoon by surprise.<br /> <br />Door to the control room seems to be bullet proof, that might be useful. Security alarm is already going off so that's a no go. Electrics? There's panels around but you have no idea which live lines would kill the power. What about a fire? You scan the ceilings and spot the panels where the CO2 extinguishers would appear from. There's one right at the end of the hall in front of the platoon that could create the perfect dust wall for you to engage from.<br /> <br />You pull out your knife and remove one of the panels of the wall uncovering a bundle of wires. The only way to cause them to short is by using your energy pistol at it's lowest power, that should do the trick.<br /> <br />After praying that you chose correctly which wires to burn that won't have any negative effect on the systems over at the control room, with a single carefully  placed shot you burn a handful of them and wait as the smoke starts rising alongside the corridor and fire starts expanding inside the walls. Unfortunately you not only killed the power in the hallway, locking yourself of a way out as the doors shut behind you, but also the control room.<br /> <br />The group of Karoshi personnel that were previously frantically scanning every screen inside the room are now walking out of it being escorted by the ghouls and they're coming your way. Even if you were to take them out you'd still be locked in the section until eventually another group comes. You see yourself without a way out and just lay your weapon on the floor and admit defeat.<br /> <br />When you're found by their party you're instantly brutally hit by what seemed to be the leader of their group, blacking out instantly.<br /> <br />We can only pray that they have mercy on you.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "Stealth": {
+        "description": "Use stealth, deception, and wits to enter the facility undetected.<br /> <br />It requires a lot of patience and take a longer time, but the chance of you keeping your head on your shoulders through this mission is a little bit higher.",
+        "steps": [
+            {
+                "id": 1,
+                "imageUrl": "stairway.jpg",
+                "text": "The entrance to the underground compound lays hidden on the side at the top of the stairway, amongst what seem to be an unassuming grassy area full of shrubs and bushes.  You find yourself already outnumbered as a group of ghouls are wandering aimlessly by it, probably unaware as to why they're even there in the first place.<br /> <br />Regardless they seem to be unarmed.<br /> <br />What will you do?",
+                "choices": [
+                    {
+                        "text": "Crouch down the bushes and observe.",
+                        "odds": [
+                            0.098,
+                            0.002,
+                            0.9
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "As you crouched in the bushes, the adrenaline pumping through your veins, you listened intently for any sign of the ghouls guarding the entrance to the access point. Time seemed to crawl by, but just as you were about to give up hope, you heard the unmistakable sound of their heavy footsteps moving as fast as they could away. Your heart skipped a beat as you realized that this was your chance.<br /> <br />With a deep breath, you rose to your feet and began to climb the steps leading to the entrance, moving quickly and quietly. Every step felt like a gamble, but you were so close to your goal, and you couldn't let this opportunity slip away. You moved cautiously, staying low and using the cover of the bushes to conceal your presence.<br /> <br />The ghouls were too focused on their mission, they hadn't noticed you yet, and you had to act fast. You reached the top of the steps and as you watched the ghouls running frantically in the distance, it was clear that they had been summoned elsewhere. Thankfully you now could spot the entry point; a very well secured manhole on the ground, and no one was guarding it anymore.",
+                                "next": 2
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As you lay concealed in the bushes, the weight of the mission bearing down on you, you fought to keep your eyes open. Despite your best efforts to stay alert, the exhaustion of your journey finally caught up with you, and you succumbed to the pull of sleep.<br /> <br />How long you've been asleep, you couldn't tell, but when you opened your eyes, it was already too late. A ghoul, who had been patrolling the area, had discovered you, lying there vulnerable. It let out a guttural growl, and lunged forward, ready to attack.<br /> <br />With lightning reflexes, you quickly came to your senses, reaching for your weapon and trying to defend yourself. But the element of surprise was on the ghoul's side, and you were at a disadvantage, caught off guard and still groggy from sleep. You fought back with all your might, but it was clear that you were outmatched.<br /> <br />The ghoul was too strong, and you were quickly overpowered.<br /> <br />As the ghoul's grip tightened around your throat, you knew that your mistake had cost you dearly. The darkness closed in as you slowly blacked out.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": [
+                                    "A lone ghoul lazily scratches its back with a stick, while making a low growling sound. It seems uninterested in its surroundings and is focused on relieving an itch. It is leaning against a wall, its eyes closed in contentment as it scratches its back. It occasionally pauses to let out a contented sigh before returning to its scratching.",
+                                    "A pack of ghouls are huddled together, sharing a freshly caught rat, tearing it apart with their bare hands. They seem to be in high spirits, chatting as they eat sitting in a circle, passing the rat around as they rip chunks off of it, their faces smeared with blood.",
+                                    "A ghoul is pacing back and forth in front of the stairway, muttering to itself in a guttural language. It seems to be agitated and is talking to itself, gesturing wildly with its hands as if in frenzy. It's clear that it's upset about something. It's mumbling to itself unintelligibly, but the tone is clearly angry.",
+                                    "A solitary ghoul is meticulously grooming its hair using a broken mirror, seemingly unaware of its surroundings. It is paying close attention to its reflection, occasionally pausing to adjust its long greasy hair, carefully smoothing it down and tucking it behind its ears. As it smiles, the skin on it cheeks appear loose and stretched over its teeth, almost to the point of getting ripped apart.",
+                                    "A band of ghouls are having a heated argument over a broken helmet, snarling and snapping at each other. They are getting more aggressive as it escalates, and it seems like it might turn into a fight. One ghoul holding seem to demand he keep it, while the others are trying to take it away from him. They are snarling and baring their teeth, and it's clear that they are getting more and more agitated.",
+                                    "A lone ghoul is engaged in a staring contest with a statue, seemingly mesmerized by it. The ghoul is standing perfectly still, its eyes locked on the statue's eyes. The ghoul is standing in front of a statue, its eyes locked on the statue's eyes. It's standing perfectly still, as if in a trance. It's as if it's trying to communicate with the statue or maybe it's waiting for the statue to make a move.",
+                                    "A group of ghouls are gathered around a makeshift fire, roasting what looks like a small animal on a spit. They seem to be enjoying themselves, passing around a bottle and taking turns rotating the spit, laughing and joking as they cook their meal. The smell of cooking meat fills the air, and they seem to be in high spirits.",
+                                    "A single ghoul is sitting on the ground, staring off into the distance, seemingly lost in thought. Its eyes are focused on something far off in the distance. It's sitting completely still, its expression unreadable. It's as if it is trying to remember something that it just couldn't quite recall.",
+                                    "A group of ghouls tries to kill the time by playing catch using what seems be a human head  - or possibly just a helmet - as the ball. They are laughing and cheering as they toss it back and forth. They are catching it with their hands and feet, showing off their inhuman coordination and dexterity. They seem to be having a good time and are completely unaware of their surroundings.",
+                                    "In the distance, a ghoul is singing a haunting melody in a low tone, the melody almost seem to be soothing. It sways back and forth as it sings, lost in its own world."
+                                ],
+                                "next": 1
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Try an old trick.",
+                        "odds": [
+                            0.98,
+                            0.02,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "As you surveyed the stairway, your eyes scanning the area for potential threats, you noticed something peculiar about the ghouls patrolling the area. They seemed to be easily distracted and lacked the vigilance that you had come to expect from them after hearing the stories more experienced rebels would tell.  Regardless you quickly assessed the situation and came up with a plan.<br /> <br />You began to gather small twigs and pebbles around you, and then carefully began to throw them in different directions, trying to draw the ghouls' attention away from your position. You moved slowly and cautiously, always keeping an eye on the ghouls' movements. Every time one of them started to wander too close to your hiding spot, you threw another twig or pebble to distract them. Just like a dog fetching a stick they would fall for it over and over.<br /> <br />You repeated this process, gradually making your way up the stairway until eventually you were able to slip past them unnoticed as they clearly were more interested about the magical rain of pebbles than fulfil their guarding duty.  It took hours of patience and a lot of twigs and pebbles, but as you finally reached the top of the stairway, you let out a sigh of relief. You had successfully outsmarted, if that's even an achievement, their group and the entry point was on sight.",
+                                "next": 2
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As you surveyed the stairway, your eyes scanning the area for potential threats, you noticed something peculiar about the ghouls patrolling the area. They seemed to be easily distracted and lacked the vigilance that you had come to expect from them after hearing the stories more experienced rebels would tell. Regardless you quickly assessed the situation and came up with a plan.<br /> <br />You began to gather small twigs and pebbles around you, and then carefully began to throw them in different directions, trying to draw the ghouls' attention away from your position. You moved slowly and cautiously, always keeping an eye on the ghouls' movements. Every time one of them started to wander too close to your hiding spot, you threw another twig or pebble to distract them. Just like a dog fetching a stick they would fall for it over and over.<br /> <br />The plan was going perfectly as you were 3/4 of the way up already. As you were thinking to yourself that they're either the stupidest group of ghouls in the city, or you're just a mastermind tactician, you missed a step and tripped. Causing you to roll down the stairs. As you hit the ground all the air in your lungs get released in an audible groan. Not only that, but as you were rolling down right ankle broke and you were unable to get up.<br /> <br />Like a lost lamb you laid there, awaiting as the footsteps, growls and howls grew closer. The pain was too much to bear so thankfully you blackout before they reach you.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "imageUrl": "manhole.jpg",
+                "text": "As you reach the top you notice a large manhole that seems to be connected to the old city sewer system. You know this is the right spot as it is covered with blood, claw marks and what seems to be some sort of organic matter. We better don't even try to find out what that is for the time being.<br /> <br />It may be old and rusted but it seems to be completely locked from the inside and no other access point are visible to you as of right now. As you realise that you're at a dead end you start to hear the howls of the ghouls of the area get closer and closer, you need to hurry up.<br /> <br />What will you do?",
+                "choices": [
+                    {
+                        "text": "Inspect every inch of the manhole.",
+                        "odds": [
+                            0.97,
+                            0.03,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "You lie down close to the ground to keep out of sight. As you inspect the access point you notice that the hinge that holds it closed looks old and rusted. You see that one of the screws is loose and you realize that this could be a weak spot. You pull out your cutting tool, which you brought with you as part of your mission supplies.<br /> <br />You begin to work on the hinge, carefully cutting away at the metal, trying to avoid making any loud noise that could attract the attention of any ghouls nearby. It's a slow and tedious process, but you're determined to succeed. The hinge creaks and groans as you work, and every time the sound gets louder you pause, listening for any sign that you have been detected. Sweat drips from your forehead as the tension builds, but you keep going.<br /> <br />Finally, the hinge gives way, and the manhole swings open with a loud screech. You quickly climb down closing the lid behind you. The darkness envelops you instantly. You take a moment to catch your breath knowing that you have to be even more careful now that you are inside the compound. There's no running away now.",
+                                "next": 3
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As you crouch down to inspect the manhole, you realize that the metal cover is slick with moisture. You try to steady yourself, but your hands slip, and you lose your balance. You hit your head on the cover with a loud thud, and everything goes black.<br /> <br />When you wake up, you realize that you are in a dark, damp cell. Your head is pounding, and you can't remember how you got there. As you try to stand, you feel a sharp pain in your wrists and realize that you are shackled to the wall.<br /> <br />You try to remember what happened, but your memory is foggy. You realize that you must have been taken captive by the ghouls. You try to shake off the grogginess and focus on a way to escape, but it's clear that you are outmatched and outgunned. You feel a sense of disappointment and failure as you accept your fate, knowing that you will probably spend the rest of your days in this dank, dark cell.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Avoid risking detection and move away from the manhole.",
+                        "odds": [
+                            0.99,
+                            0.01,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "You walk away from the manhole to avoid getting caught. You keep your eyes peeled for any other potential entry points as you move. Not far off, you spot a metal grate that leads to what seems to be a vent. The grate is suspiciously easy enough to pry open, and you quickly slip inside.<br /> <br />You find yourself in a cramped space but you can hear the sound of water dripping in the distance. You begin to make your way, crawling on your hands and knees. The air is thick and musty, but you keep moving, focused on your mission.<br /> <br />As you move deeper into the vent, you come across a junction, and you have to make a decision about which way to go. You choose one direction, and it leads you even deeper. The going is slow, and you have to be careful as the vents creak with your every move.<br /> <br />Finally, you reach the end and you can see a faint light underneath.",
+                                "next": 4
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As you walk quietly away from the manhole, you keep your eyes peeled for any other potential entry points. Not far off, you spot a metal grate that leads to what seems to be a vent. The grate is suspiciously easy enough to pry open, and you quickly slip inside.<br /> <br />You find yourself in a cramped space but you can hear the sound of water dripping in the distance. You begin to make your way, crawling on your hands and knees. No one told you that there would be cramped spaces. Claustrophobia kicks in and you freeze in panic as you realise that the way back is even slower and you cannot really remember how to return. Staying in one place inside these thin layered vents was not a great idea however.<br /> <br />The vent gives in to your own weight causing you to fall into the corridor bellow which got filled almost instantly with what appeared to be Karoshi security personnel carrying a whole array of rifles and guns. One of them pistol whips you as you lay on the ground and you black out.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "imageUrl": "hallway.jpg",
+                "text": "This place clearly was once a sewer. The stench in the air is unequivocal, despite the efforts to turn it into what seemed to be now some sort of bunker. Definitely not any kind of bunker you have seen before. Despite never stepping a foot inside one of their compounds or buildings you can tell this is a Karoshi built structure. No other corporation in the city could afford to create something of this high grade.<br /> <br />But why here? Why under the city? What are they hiding exactly? Why a ghoul of all things was guarding it?<br /> <br />You make your way through the dim blue lit halls, as your footsteps echo behind you. You know you're alone, yet this incredibly strong feeling of being watched takes over you and kicks your nervous system on high alert.<br /> <br />As your eyes get used to the darkness your body brings you to a sudden stop. Your instincts were right. Far in the distance, deep in the darkness of the hallway ahead of you, the silhouette of a person.<br /> <br />Before you have any time to understand what or who it is,  the shadowy figure draws what appears to be a Katana at the same time it starts to charge towards you at an amazing speed - yet - in total silence. As it gets closer his weapon starts to emit an extremely powerful electric charge, strong enough for you to see it flowing in the air around it, like miniature lightings, one after another, illuminating the area where he is for a split second before wrapping it's carrier in shadows again. Every time it flashes you can see it get closer, with only the sound of energy charged weapon crackling through the air.<br /> <br />You need to take action now.",
+                "choices": [
+                    {
+                        "text": "RUN AWAY!",
+                        "odds": [
+                            0.98,
+                            0.02,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "As you turn to run, your heart pounding in your chest, you can hear the crackling of the electric charge behind you, getting closer and closer. You can sense the creature's presence looming over you, closing in.<br /> <br />You push yourself to run faster, your muscles burning with exertion.<br /> <br />You turn a corner and see a metal grate blocking your way, it's a small opening but it's your only chance of escape. You dart towards it, reaching out to pull it open. The metal is old and rusty, it resists at first but you manage to wrench it open and slip inside. You find yourself in a small, cramped space, barely big enough for you to move, but it's your only hope.<br /> <br />The creature is close behind you, its electric charge illuminating the darkness. It reaches the grate and starts to claw at it, trying to break through. The metal groans and creaks under the pressure, but it holds. You can feel the heat from the electric charge and you know that you're running out of time.<br /> <br />The creature's efforts to break through the grate become more frantic, and you can hear the metal starting to give way. You start to move further into the cramped space, trying to find a way out. You find a small opening in the corner, just big enough for you to squeeze through.<br /> <br />With one last burst of energy, you push yourself to your feet and start to run. The creature is still trying to break through the grate, but you're free. You run as fast as you can, your heart pounding in your chest. You know that the creature won't give up easily, but you're determined to escape. You'll find a way out of this nightmare and you'll survive.",
+                                "next": 6
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As you turn to flee, the crackling energy of the creature's weapon echoes behind you, growing louder with each passing moment. The feeling of being watched intensifies and you quicken your pace, your nerves on high alert.<br /> <br />As your eyes adjust to the dim blue light, you come to an abrupt halt. You spin on your heels, your only thought to escape. You spot a metal grate, a small opening that may be your only chance. You dart towards it, yanking it open with all your might. The grate gives way, and you slip inside, the cramped space barely big enough to move.<br /> <br />You hear the creature's katana slicing through the metal behind you, its electric charge crackling louder and louder. The grate shudders and groans under the pressure, but holds. With every passing moment, the creature's efforts become more frantic, and you can sense it getting closer.<br /> <br />You try to run further but the creature catches up to you, and the last thing you feel is the searing pain of electricity through your body rendering you unconscious. It's the end of the mission for you",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "RUN TOWARDS IT! (YOU WILL DIE)",
+                        "odds": [
+                            0.0,
+                            1.0,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": null,
+                                "next": null
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As the creature charges towards you, your instincts tell you to run, but something inside you snaps. You realize that stealth can only take you so far, and it's time to fight. You take a deep breath and charge towards the creature, but it's too late. The creature is too fast, and its electric katana slices through the air, catching you off guard and slashing you across the chest.<br /> <br />You stumble backward, clutching your wound, as the creature advances towards you. You can feel the heat emanating from its weapon and the electricity crackling around it. You can see the determination in the creature's eyes and know that it won't stop until you're dead. Panicking, you swing your weapon at the creature, but it dodges your attack with ease. It moves in for the killing blow, and you can feel the life draining from your body as the electric katana pierces your skin.<br /> <br />You feel a searing pain as your muscles seize up. You fall to the ground, unable to move, and you can feel the heat of the creature's weapon against your skin. You realize that you've been burned and paralyzed, but you are still alive. The creature stands over you, its weapon still crackling with energy. You know that you have failed and the mission is lost, but you have survived. You close your eyes knowing that your death has been averted.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "imageUrl": "hallway.jpg",
+                "text": "This place clearly was once a sewer.  The stench in the air is unequivocal, despite the efforts to turn it into what seemed to be now some sort of bunker. Definitely not any kind of bunker you have seen before. Despite never stepping a foot inside one of their compounds or buildings you can tell this is a Karoshi built structure. No other corporation in the city could afford to create something of this high grade.<br /> <br />But why here? Why under the city? What are they hiding exactly? Why a ghoul of all things was guarding it?<br /> <br />You make your way through vents. As your eyes get used to the darkness your body brings you to a sudden stop. Underneath you, a shadowy figure draws what appears to be a Katana. Its weapon starts to emit an extremely powerful electric charge, strong enough for you to see it flowing in the air around it, like miniature lightings, one after another, illuminating the area where he is for a split second before wrapping it's carrier in shadows again. You haven't seen anything like it.<br /> <br />You hold your breath as your eyes widen with curiosity.",
+                "choices": [
+                    {
+                        "text": "Stay still and observe",
+                        "odds": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "Your heart races and your eyes dart around the shadowy hallway. The sound of the weapon crackles through the air, and you can feel it in your bones. As the figure starts to move away, you stay still and try to remain unseen.",
+                                "next": 5
+                            },
+                            {
+                                "name": "fail",
+                                "text": null,
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Keep crawling!",
+                        "odds": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "You make your way through the tight and cramped vents, underneath you can hear the sounds of the creature moving about. Every now and then, you pause to listen and make sure that you are not being followed. The metal ducts are cool to the touch and the darkness is only broken by the occasional shaft of light filtering through small holes in the vent.<br /> <br />You try to keep your breathing steady and quiet, not wanting to alert anyone of your presence. The air is musty and stale, making it hard to breathe. But you push through, knowing that you need to find another way into this place.",
+                                "next": 6
+                            },
+                            {
+                                "name": "fail",
+                                "text": null,
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "imageUrl": "hallway.jpg",
+                "text": "However, the weight of your body causes the vent to break and you plummet to the ground. You quickly look around to assess the situation and your heart sinks. The figure has stopped and is now looking directly at you. You can feel the Katana's electric charge intensifying as the figure slowly approaches. You can see the power in its blade and the potential for destruction in its wielder's eyes. Fear grips you and you know that if you don't act fast, you won't make it out alive. In a split second, you make a decision.<br /> <br />THERE IS NO WAY YOU WILL SURVIVE FIGHTING THIS THING!",
+                "choices": [
+                    {
+                        "text": "RUN AWAY!",
+                        "odds": [
+                            0.99,
+                            0.01,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "As you turn to run, your heart pounding in your chest, you can hear the crackling of the electric charge behind you, getting closer and closer. You can sense the creature's presence looming over you, closing in.<br /> <br />You push yourself to run faster, your muscles burning with exertion.<br /> <br />You turn a corner and see a metal grate blocking your way, it's a small opening but it's your only chance of escape. You dart towards it, reaching out to pull it open. The metal is old and rusty, it resists at first but you manage to wrench it open and slip inside. You find yourself in a small, cramped space, barely big enough for you to move, but it's your only hope.<br /> <br />The creature is close behind you, its electric charge illuminating the darkness. It reaches the grate and starts to claw at it, trying to break through. The metal groans and creaks under the pressure, but it holds. You can feel the heat from the electric charge and you know that you're running out of time.<br /> <br />The creature's efforts to break through the grate become more frantic, and you can hear the metal starting to give way. You start to move further into the cramped space, trying to find a way out. You find a small opening in the corner, just big enough for you to squeeze through.<br /> <br />With one last burst of energy, you push yourself to your feet and start to run. The creature is still trying to break through the grate, but you're free. You run as fast as you can, your heart pounding in your chest. You know that the creature won't give up easily, but you're determined to escape. You'll find a way out of this nightmare and you'll survive.",
+                                "next": 6
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As you turn to flee, the crackling energy of the creature's weapon echoes behind you, growing louder with each passing moment. The feeling of being watched intensifies and you quicken your pace, your nerves on high alert.<br /> <br />As your eyes adjust to the dim blue light, you come to an abrupt halt. You spin on your heels, your only thought to escape. You spot a metal grate, a small opening that may be your only chance. You dart towards it, yanking it open with all your might. The grate gives way, and you slip inside, the cramped space barely big enough to move.<br /> <br />You hear the creature's katana slicing through the metal behind you, its electric charge crackling louder and louder. The grate shudders and groans under the pressure, but holds. With every passing moment, the creature's efforts become more frantic, and you can sense it getting closer.<br /> <br />You try to run further but the creature catches up to you, and the last thing you feel is the searing pain of electricity through your body rendering you unconscious. It's the end of the mission for you",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "RUN TOWARDS IT! (YOU WILL DIE)",
+                        "odds": [
+                            0.0,
+                            1.0,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": null,
+                                "next": null
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As the creature charges towards you, your instincts tell you to run, but something inside you snaps. You realize that stealth can only take you so far, and it's time to fight. You take a deep breath and charge towards the creature, but it's too late. The creature is too fast, and its electric katana slices through the air, catching you off guard and slashing you across the chest.<br /> <br />You stumble backward, clutching your wound, as the creature advances towards you. You can feel the heat emanating from its weapon and the electricity crackling around it. You can see the determination in the creature's eyes and know that it won't stop until you're dead. Panicking, you swing your weapon at the creature, but it dodges your attack with ease. It moves in for the killing blow, and you can feel the life draining from your body as the electric katana pierces your skin.<br /> <br />You feel a searing pain as your muscles seize up. You fall to the ground, unable to move, and you can feel the heat of the creature's weapon against your skin. You realize that you've been burned and paralyzed, but you are still alive. The creature stands over you, its weapon still crackling with energy. You know that you have failed and the mission is lost, but you have survived. You close your eyes knowing that your death has been averted.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "imageUrl": "storage.jpg",
+                "text": "After what felt like an eternity you find yourself at the entrance of what seems to be an elevated path walk above a large storage area. The place is virtually empty besides two fully geared ghouls with rifles and armour who are keeping guard of at least 15 industrial scale crates fully sealed and displaying the Karoshi logo on the sides and a man wearing the extremely well known and recognizable uniform who's filling up the last of the large crates with smaller yellow coloured containers.<br /> <br />From your vantage point you can see a the door with the words 'Genetic Testing Environment. Only authorized personnel allowed entry past this point' . There's no way to gain access to it without a fight.<br /> <br />As you start to device a plan of action the alarm system of the compound goes off and the doors between the halls you came from and the storage area close shut behind you. There's no turning back now and you have to think on the fly. Soon this room will be filled with more of those things and you won't stand a chance.<br /> <br />What will you do?",
+                "choices": [
+                    {
+                        "text": "Take down a guard and use disguise yourself as the enemy.",
+                        "odds": [
+                            0.97,
+                            0.03,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "As you survey the area, your eyes quickly focus on the two guards standing watch over the crates as another wanders off around the room in a very casual manner. He's clearly not doing a great job at patrolling the area. He's distracted, fidgeting with his comms unit and totally unfazed by the alarm sounding off. He motioned to one of the guards keeping guard to go on and check the commotion. You quickly decide to take advantage of this opportunity. As the guard makes his way up the stairs to the elevated area where you're hiding you make sure to jump behind him at a location completely out of sight from the other two.<br /> <br />With one swift blow, you strike the guard on the back of the head, rendering him unconscious. You quickly move to grab his rifle and armor, using them to disguise yourself and blend in with his unaware partners. You approach the man filling the crates, pretending to be there to help guide him to a secure area.<br /> <br />As you get closer, you overhear snippets of conversation between him and the other guard. You learn that the crates are being shipped to other locations, the contents are on a need-to-know.<br /> <br />The man in the uniform scans his badge on the sealed door, letting you and your *partner* inside, leaving the flank of heavier armed ghouls making their way to the area on the other side. As you work, you can feel your heart pounding in your chest. Every moment feels like an eternity as you fear getting discovered. But you remain focused, knowing that the fate mission rests on your nerves.",
+                                "next": 7
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As you survey the area, your eyes quickly focus on the two guards standing watch over the crates as another wanders off around the room in a very casual manner. He's clearly not doing a great job at patrolling the area. He's distracted, fidgeting with his comms unit and totally unfazed by the alarm sounding off. He motioned to one of the guards keeping guard to go on and check the commotion. You quickly decide to take advantage of this opportunity. As the guard makes his way up the stairs to the elevated area where you're hiding you make sure to jump behind him at a location completely out of sight from the other two.<br /> <br />With one swift blow, you strike the guard on the back of the head, rendering him unconscious.<br /> <br />But just as you reach for his rifle and armor, totally unaware, you don't realise the other guard walking slowly up the steps, still distracted, clearly looking for his partner to inform him of something. He immediately raises his Bo Staff, a metal rod with a high-voltage stun gun on both ends, and with one swift movement thrusts it into your chest.<br /> <br />You feel the electricity coursing through your body, your muscles contracting in pain as you're thrown to the ground. You try to fight back, but the guard is too quick and too strong. He disarms you, binding your hands and feet before dragging you to your feet.<br /> <br />You're thrown into a cell, your mind still reeling from the shock of the stun gun. You try to come up with a plan, a way to escape, but your thoughts are muddled and slow. You can only hope that someone will come to your rescue before it's too late. You're interrogated, tortured, and experimented on by the guards and scientists. You may eventually be rescued, but the cost is high. You've been broken, both physically and mentally, with the weight of your failure heavy on your shoulders.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Pretend to be there to escort the scientist to a safe area.",
+                        "odds": [
+                            0.99,
+                            0.01,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "You quickly survey the area, looking for any way to deceive the guards but soon realize that the scientist is the key to your plan. You decide to simply walk in nonchalantly into the room instantly alerting the guards.<br /> <br />As you make your way in, ignoring the guards commands to stop and identify yourself, you explain in a deep commanding voice that you're there to make sure the employee gets to safety as there's been a breach in the compound. While the guards are still pointing their guns at you and walking towards your position you stop on your steps and stare at them with a disapproving look on your face.<br /> <br />'Aren't you supposed to be with the rest of the security personnel looking for the infiltrators? Perhaps.. one or all of you aren't who you're claiming to be?' - you mutter, in what was almost a whisper, as you raise your energy gun and aim it directly at one of the guards heads.<br /> <br />This made them stop in their tracks, and after what felt like an infinite amount of time, the one closer to you slowly lowers his weapon and with a grunt slowly walks away.<br /> <br />The scientist seemed almost overjoyed to be taken away and thanks you as he opens the door. Once inside you ask him to close it shut and make sure no one can enter from the outside. Begrudgingly he complies and as he turns around to confront you he's met with your fist and instantly getting knocked down. You cannot risk him raising any alarms so you take his card and make sure he's secured to one of the many metal tables bolted to the ground.",
+                                "next": 7
+                            },
+                            {
+                                "name": "fail",
+                                "text": "You quickly survey the area, looking for any way to deceive the guards but soon realize that the scientist is the key to your plan. You decide to simply walk in nonchalantly into the room instantly alerting the guards.<br /> <br />As you make your way in, ignoring the guards commands to stop and identify yourself, you explain in a deep commanding voice that you're there to make sure the employee gets to safety as there's been a breach in the compound. While the guards are still pointing their guns at you and walking towards your position you stop on your steps and stare at them with a disapproving look on your face.<br /> <br />As you're about to ask question the guards and impose your imaginary authority over them the scientist  intervenes:<br />'I have never seen you before. If you're here for me what is my codename in the system? As much as I hate these pack of animals I do know for sure who they are. I'm not going nowhere with you until you identify yourself'<br /> <br />This caught you off guard completely and it's very clear in your face that you have no idea about how to respond. As you struggle to get your words out looking directly at the scientist, one of the guards comes from behind you and uses his electrified Bo-Staff on you, knocking you to the ground and temporarily paralysing you before you get to react.<br /> <br />As they carry your body out of the room your body gives up due to the extreme pain causing you to black out.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 7,
+                "imageUrl": "control.jpg",
+                "text": "After navigating through the endless hallways, avoiding enemies and taking out lone guards on their way to their emergency positions, you find the entrance to what seems to be a control room completely full of Karoshi personnel pacing around and doing check-ups in all sectors on their screens. There seems to be a mix of engineers and scientists, all unarmed, except for the small platoon of ghouls guarding the entry.<br /> <br />If you gained access to their consoles there's a good chance that you could find out the whereabouts of the missing rebels.<br /> <br />If only there was a way to get the room emptied and the ghouls cleared.",
+                "choices": [
+                    {
+                        "text": "Use the enemies' tech against them",
+                        "odds": [
+                            0.98,
+                            0.02,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "As you're silently watching them in the distance you realise that it is impossible for you to win this fight and deception will not work again...<br /> <br />'At least not from a human' you say to yourself as you start looking inside your backpack for the small pocket drone Commander LOX gave you. After all the now renamed TRC-Rebel2.3v Drone was once a Karoshi standard security drone used to navigate areas like ventilation networks and sewers. Without any difference to it's appearance it should fool any Karoshi personnel.<br /> <br />You flip open it's foldable screen and start typing the message for it to repeat over and over as it's flying around: 'ALL UNITS MUST EVACUATE IMMEDIATELY, ARMED EXPLOSIVES HAVE BEEN FOUND IN THE SECTOR AND ALL ADJACENT ONES. THIS IS NOT A REQUEST, THIS IS AN ORDER'.<br /> <br />As you close the screen and adjust it's volume to max you pray to yourself for it to work and sent it on it's way.<br /> <br />As it blared it's way across the hallway you see the ghouls instantly react to it. They seem confused at first, probably didn't hear the whole message properly, but as it get closer the all look each other as what appeared to be the squad leader opens the door into the control room and yells at the workers 'OUT NOW NO QUESTIONS ASKED'.<br /> <br />They all comply instantly and sprint out of the room and towards the hallways to the left of the door. That must be the way out, you best remember that later.<br /> <br />With nobody blocking your way you enter the room and find the main console. This definitely should help you find the missing rebels. You better hurry up though, they won't be gone forever.",
+                                "next": null
+                            },
+                            {
+                                "name": "fail",
+                                "text": "As you're silently watching them in the distance you realise that it is impossible for you to win this fight and deception will not work again...<br /> <br />'At least not from a human' you say to yourself as you start looking inside your backpack for the small pocket drone Commander LOX gave you. After all the now renamed TRC-Rebel2.3v Drone was once a Karoshi standard security drone used to navigate areas like ventilation networks and sewers. Without any difference to it's appearance it should fool any Karoshi personnel.<br /> <br />You flip open it's foldable screen and start typing the message for it to repeat over and over as it's flying around: 'ALL UNITS MUST EVACUATE IMMEDIATELY, ARMED EXPLOSIVES HAVE BEEN FOUND IN THE SECTOR AND ALL ADJACENT ONES. THIS IS NOT A REQUEST, THIS IS AN ORDER'.<br /> <br />As you close the screen and adjust it's volume to max you pray to yourself for it to work and sent it on it's way.<br /> <br />As it blared it's way across the hallway you see the ghouls instantly react to it. They seem confused at first, probably didn't hear the whole message properly, but as it get closer the all look each other as what appeared to be the squad leader opens the door into the control room and yells at the workers 'OUT NOW NO QUESTIONS ASKED'.<br /> <br />They all comply instantly and sprint out of the room, unfortunately for you as they're leaving one of engineers stops and takes a look at the drone. As one of the ghouls turned security makes his way back and goes to pull him away the engineer looks at him and exclaims:<br />How fucking stupid are you lot? Our drones are only used for security purposes, they do not have makeshift speakers built into them. That's why we have coms and devices, why would they send a fucking pocket drone of all things to let us know of an emergency?<br /> <br />You never knew a ghoul could look embarrassed, but this one definitely was, specially after the engineer pulls out what seems to be some sort of scanner. It aims it at the drone, and after around 10 seconds it stops, looks at his screen and points to the ghoul in your direction.<br /> <br />If they don't know you're here they will very soon. Get out rebel and live to try another day.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Fall back and eavesdrop",
+                        "odds": [
+                            0.98,
+                            0.02,
+                            0.0
+                        ],
+                        "results": [
+                            {
+                                "name": "success",
+                                "text": "You hide and wait for what felt like an eternity. You know there's no realistic way for you to take down all the guards and have all the personnel on the room not get to an emergency button or coms device to call for her.<br /> <br />As you're about to give up and call it a day you hear the footsteps of two men walking towards the room from one of the adjacent hallways. They stop right by the door and you could barely make out what they're talking about:<br />-So you did fix the power issues we've had for the last week? Are we safe to use this control room for the time being?<br />-Yes, unfortunately it's not a permanent fix. There's some issue with the wiring on the northside hallway panel.  We have to wait until our top electrician to come fix it. Unfortunately he's currently working on the mess that was caused back there by whoever got inside the compound. If the power is to go out again just switch to the backup control room, we cannot risk having security breaches at a time like this. Orders from above.<br /> <br />Both men nod at each other and as one walks into the room the second keeps walking straight into what was labelled as West Hallway 35. That means the north hallway is where you are hiding.<br /> <br />You look around and spot the northside panel. It's obvious to anyone which one it is as the latches aren't even working anymore, probably due to the constant opening and closing, and it's halfway open. After waiting for a few minutes for the right moment you hear the guards suddenly break into some sort of argument, something about not all of them getting shiny new helmets, and make your way to the panel. As you open it you can clearly see the temporary fix and conclude that you can get it reconnected once they're gone.<br /> <br />With the butt of your gun, to avoid getting electrocuted, you pull the wiring loose and the lights go off completely. Followed by an ocean of cursing in the distance from the engineers and scientist, the ghouls on the other hand found it quite amusing. as the extremely dim backup lights go on throughout the sector you use the cover of the darkness to your advantage and return to your hiding spot and wait for the area to be completely empty.<br /> <br />After they were all gone and you weren't able to hear anything in the distance, you reconnect the power, for now at least, and get the control online. This is your chance rebel, use the main console and find out where the rest of your comrades are!",
+                                "next": null
+                            },
+                            {
+                                "name": "fail",
+                                "text": "You hide and wait for what felt like an eternity. You know there's no realistic way for you to take down all the guards and have all the personnel on the room not get to an emergency button or coms device to call for her.<br /> <br />As you're about to give up and call it a day you hear the footsteps of two men walking towards the room from one of the adjacent hallways. They stop right by the door and you could barely make out what they're talking about:<br />-So you did fix the power issues we've had for the last week? Are we safe to use this control room for the time being?<br />-Yes, unfortunately it's not a permanent fix. There's some issue with the wiring on the northside hallway panel. We have to wait until our top electrician to come fix it. Unfortunately he's currently working on the mess that was caused back there by whoever got inside the compound. If the power is to go out again just switch to the backup control room, we cannot risk having security breaches at a time like this. Orders from above.<br />Both men nod at each other and as one walks into the room the second keeps walking straight into what was labelled as West Hallway 35. That means the north hallway is where you are hiding.<br /> <br />You look around and spot the northside panel. It's obvious to anyone which one it is as the latches aren't even working anymore, probably due to the constant opening and closing, and it's halfway open. After waiting for a few minutes for the right moment you hear the guards suddenly break into some sort of argument, something about not all of them getting shiny new helmets, and make your way to the panel. As you open it you can clearly see the temporary fix and conclude that you can get it reconnected once they're gone.<br /> <br />As panic sets in as you don't want to be spotted, in a lapse of judgment you grab the wires without any sort of protection and you're shocked harder than you have ever been. The short is so strong that the panel itself starts releasing sparks, which is enough, even in the distance, to be noticed by the platoon of ghouls. After a few seconds you manage to let go and all the lights go off. It is too late regardless, you're surrounded and taken away as they mock you for grabbing a live power connection without protection. With burnt hands and an burnt out spirit you're thrown into a cell.<br /> <br />Sometimes you just have to keep your cool and think rebel. Let's hope they at least give you some sort of medical attention.",
+                                "next": null
+                            },
+                            {
+                                "name": "neutral",
+                                "text": null,
+                                "next": null
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

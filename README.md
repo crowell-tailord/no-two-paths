@@ -8,7 +8,7 @@ Built with:
 - Midjourney
 
 ### todo
-- [ ] gtfol
+- [x] gtfol
 - [x] use static story to start building ai-based sections of story
 - [ ] auto generate scene images
 - [x] connect chatgpt
@@ -16,4 +16,4 @@ Built with:
 - [ ] build character creation func
 - [x] generate options to user
 - [ ] logic for determining end of story
-- [ ] analytics
+- [x] analytics

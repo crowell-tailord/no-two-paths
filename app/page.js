@@ -7,6 +7,7 @@
 */
 
 import { useState } from 'react'
+import Script from 'next/script'
 import Header from '~/layout/Header';
 import Footer from '~/layout/Footer';
 import NFTdeets from '~/components/NFTdeets';
@@ -18,6 +19,16 @@ export default function Page() {
 
   return (
     <div className="bg-[url('/i/bg-wide.jpeg')] bg-center bg-cover min-h-screen">
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-Q1T2LS6Y94" />
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'G-Q1T2LS6Y94');
+        `}
+      </Script>
       <Header />
       <div className="flex flex-col items-center p-24 pb-0">
         <h1 className="">No Two Paths</h1>

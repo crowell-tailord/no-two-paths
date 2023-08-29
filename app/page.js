@@ -18,7 +18,7 @@ export default function Page() {
   const [show, setShow] = useState(true);
 
   return (
-    <div className="bg-[url('/i/bg-wide.jpeg')] bg-center bg-cover min-h-screen">
+    <div className="text-white bg-[url('/i/bg-wide.jpeg')] bg-center bg-cover min-h-screen">
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-Q1T2LS6Y94" />
       <Script id="google-analytics">
         {`

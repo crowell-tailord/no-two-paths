@@ -22,8 +22,9 @@ const NFTdeets = () => {
     // }, [])
 
     return (
-        <section className="border border-dotted p-1 bg-black w-[160px]">
-            <Image src='/i/rebel-211.png' width={150} height={150} alt="who cares" style={{ width: '150px', height: '150px' }} />
+        <section className="border border-dotted p-1 bg-black w-[160px] overflow-scroll">
+            <Image src='/i/rebel-211.gif' width={150} height={150} alt="who cares" style={{ width: '150px', height: '150px' }} />
+            <div className="pt-2"><a href="https://opensea.io/assets/ethereum/0xb54420149dbe2d5b2186a3e6dc6fc9d1a58316d4/211" target="_blank">@Rebel #211</a></div>
             <div className="xflex flex-col flex-wrap basis-3/5 gap-x-4 xmax-h-[150px] text-xs pt-2">
                 {data.attributes.map((d, i) => {
                     return <p key={i} className="pb-1">{d.trait_type}: <br /><span className="whitespace-normal text-red-600 font-mono">{d.value}</span></p>

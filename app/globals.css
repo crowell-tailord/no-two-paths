@@ -36,6 +36,43 @@ a:hover {
   @apply text-red-600;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  /* height controls horizontal bar */
+  height: 8px;
+  /* height: 0; */
+}
+
+::-webkit-scrollbar-track {
+  /* background: #000; */
+}
+
+::-webkit-scrollbar-thumb {
+  /* background: #f7884d; */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  /* background: #fcf0d7; */
+}
+
+::-webkit-scrollbar-corner {
+  background: none;
+}
+
+::selection {
+  /* background: #f7884d; */
+  /* color: #fff; */
+}
+
+::-moz-selection {
+  /* background: #f7884d; */
+  /* color: #fff; */
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 .popup-content p {
   margin-bottom: 1em;
 }
@@ -82,5 +119,75 @@ a:hover {
 
   to {
     opacity: 0
+  }
+}
+
+/* FANCY LOADER https://codepen.io/miocene/pen/WNLQKEJ */
+.loader {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+
+  --from: 6px;
+  --to: 30px;
+  --size: 4px;
+  --time: 7s;
+  --count: 51;
+  /* up to 100 */
+  --turns: 6;
+}
+
+.circle {
+  position: absolute;
+
+  --delay: calc(var(--time) / var(--count) * -1 * var(--i));
+  rotate: calc(var(--turns) * 1turn / var(--count) * var(--i));
+
+  animation: circle var(--time) var(--delay) ease-in-out infinite;
+}
+
+.circle:nth-child(n + var(--count)) {
+  display: none;
+}
+
+.circle::before {
+  content: '';
+  display: block;
+  width: var(--size);
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: white;
+  transform-origin: center center;
+
+  animation: circleSize var(--time) var(--delay) ease-in-out infinite;
+}
+
+/* rainbow */
+.rainbow .circle::before {
+  /* background-color: hsl(calc(1turn / (var(--count) / var(--turns)) * var(--i)) 100% 70%); */
+  background-color: white;
+}
+
+/* animations */
+@keyframes circle {
+  from {
+    transform: translate(0, var(--from));
+  }
+
+  to {
+    transform: translate(0, var(--to));
+  }
+}
+
+@keyframes circleSize {
+
+  0%,
+  100% {
+    transform: scale(0);
+  }
+
+  25%,
+  50% {
+    transform: scale(1);
   }
 }

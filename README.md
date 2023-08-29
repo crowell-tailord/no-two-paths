@@ -8,12 +8,12 @@ Built with:
 - Midjourney
 
 ### todo
+- [ ] auto generate scene images
+- [ ] build character creation func
+- [ ] logic for determining end of story
 - [x] gtfol
 - [x] use static story to start building ai-based sections of story
-- [ ] auto generate scene images
 - [x] connect chatgpt
 - [x] generate story from NFT/character
-- [ ] build character creation func
 - [x] generate options to user
-- [ ] logic for determining end of story
 - [x] analytics

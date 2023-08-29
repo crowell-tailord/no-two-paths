@@ -5,6 +5,7 @@
 */
 
 import { useState, useEffect } from 'react';
+import FancyLoader from '~/components/FancyLoader'
 import story from '~/data/huntOneStory.json'
 
 const Button = ({ children, action, className, disabled }) => {
@@ -90,11 +91,14 @@ const Story = () => {
                     </div>
                 </div>
             })}
-            {loading && <center className="relative my-2 w-full animate-ellipsis">Writing Scene</center>}
             {!loading && !storyLine.length && <div className="flex justify-center m-2 p-4 gap-x-2">
                 <Button action={() => handleGenerate()}>✨ Start Story</Button>
             </div>}
-            {storyLine.length > 0 && <center onClick={handleReset} className="cursor-pointer text-xs">🔄 Clear &amp; Restart</center>}
+            {storyLine.length > 0 && <p onClick={handleReset} className="cursor-pointer text-xs">🔄 Clear &amp; Restart</p>}
+            {loading && <center className="relative my-4 mb-[100px] w-full text-xs xanimate-ellipsis">
+                writing scene
+                <FancyLoader />
+            </center>}
             {/* {storyLine && <>
                 <p className="text-center mb-5">* * * * *</p>
                 <div dangerouslySetInnerHTML={{ __html: story[storyLine].description }} />

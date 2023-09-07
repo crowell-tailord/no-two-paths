@@ -31,8 +31,7 @@ export default function Page() {
       </Script>
       <Header />
       <div className="flex flex-col items-center p-24 pb-0">
-        <h1 className="">No Two Paths</h1>
-        <main className="flex w-3/4 bg-black/80 backdrop-blur-sm max-h-[70vh] border border-sky-400 border-dotted">
+        <main className="flex w-3/4 bg-black/80 backdrop-blur-sm max-h-[70vh]">
           <NFTdeets />
           <Story />
         </main>

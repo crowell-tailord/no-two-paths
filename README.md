@@ -10,7 +10,11 @@ Built with:
 ### todo
 - [ ] auto generate scene images
 - [ ] build character creation func
-- [ ] logic for determining end of story
+- [ ] incorporate perilous endings
+- [ ] ensure story has enough length
+- [ ] chainlinking longer stories
+- [x] disable/highlight choices
+- [x] logic for determining end of story
 - [x] gtfol
 - [x] use static story to start building ai-based sections of story
 - [x] connect chatgpt

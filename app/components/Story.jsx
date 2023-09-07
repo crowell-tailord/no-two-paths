@@ -6,78 +6,81 @@
 
 import { useState, useEffect } from 'react';
 import FancyLoader from '~/components/FancyLoader'
-import story from '~/data/huntOneStory.json'
+// import story from '~/data/huntOneStory.json'
 
-const Button = ({ children, action, className, disabled }) => {
-    return <button className={'border border-white px-4 mb-2 hover:bg-white hover:text-black block ' + className + (disabled ? ' opacity-30' : '')} onClick={action} disabled={disabled}>{children}</button>
-}
+const Button = ({ children, action, className, disabled }) => (
+    <button className={'border border-white px-4 mb-2 block ' + className + (disabled ? ' opacity-30' : ' hover:bg-white hover:text-black')} onClick={action} disabled={disabled}>{children}</button>
+)
 
 const Break = () => (<center className="mb-5">* * * * *</center>);
 
 const Story = () => {
-    const [storyLine, setStoryLine] = useState([]);
-    const [choices, setChoices] = useState([]);
     const [loading, setLoading] = useState(false)
-    const [step, setStep] = useState(0);
-    const [stepResult, setStepResult] = useState();
-    const [next, setNext] = useState();
-    const [oai, setOai] = useState();
-    const [prompt, setPrompt] = useState();
+    const [storyLine, setStoryLine] = useState([]);
+    const [options, setOptions] = useState([]);
+    const [choices, setChoices] = useState([])
+    const [step, setStep] = useState(1)
+    const [end, setEnd] = useState(false)
+    const [thankyou, setThankyou] = useState(false)
 
-    const handleNext = (n) => {
-        n ? setNext(n - 1) : setNext(9999);
-    }
+    useEffect(() => {
+        scrollStory()
+    }, [loading])
 
     const handleReset = () => {
         setStoryLine([])
+        setOptions([])
         setChoices([])
+        setEnd(false)
         setLoading(false)
+        setThankyou(false)
     }
 
-    const handleGenerate = async (choice) => {
-        // console.log(choice)
-        setLoading(true)
-        const H = await scrollStory();
-        // console.log(H, 'hiegh')
-        let body = choice ? choice : 'init';
-        if (choice) {
-            body = `${storyLine} \n\n Last Decision: ${choice}`
-        }
+    const generate = async (body) => {
+        setLoading(true);
         const response = await fetch('/api/ai', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify({ content: body })
         });
-
-        const data = await response.json();
-        const { output, options } = data;
-        // console.log('api replied with ', output);
-        // console.log('choices', options, typeof options)
-        // console.log(choices)
-        setOai(output)
+        const DATA = await response.json();
+        const { output, outputOptions, ending } = DATA;
+        setOptions([...options, outputOptions])
+        setEnd(ending)
         setStoryLine([...storyLine, output])
-        setChoices([...choices, options])
         setLoading(false)
-        scrollStory(H)
     }
 
-    const scrollStory = async (h) => {
-        // console.log('wtf')
-        const DIV = document.getElementById('story');
-        DIV.scrollTop = h ? h + 1500 : DIV.scrollHeight;
-        return DIV.scrollHeight;
+    const handleChoice = (choice, set) => {
+        const BODY = `${storyLine} \n\n Last Decision: ${choice}`
+        generate(BODY)
+        setChoices([...choices, choice])
+        setStep(step + 1)
+    }
+
+    const scrollStory = () => {
+        const STORYDIV = document.getElementById('story');
+        const LOADERDIV = document.getElementById('loader')
+        const SCENEDIV = document.getElementById(`scene-${step - 1}`)
+        STORYDIV.scrollTo({
+            top: loading ? LOADERDIV.offsetTop : SCENEDIV?.offsetTop,
+            behavior: 'smooth'
+        })
+    }
+
+    const poll = (t) => {
+        window.gtag('event', t)
+        setThankyou(true)
     }
 
     return (
         <section id="story" className="text-justify py-5 w-[70%] mx-[auto] max-h-[70vh] overflow-scroll">
-            {/* <Break /> */}
-            {/* <p>The infiltration operation is live Rebel. The defenses are strong, and there are ghoul hordes in the area. It looks as if they have captured some of our comrades. Try to bring them back alive, but remember objective #1 is to get inside the compound. Make your decision wisely, there will be much risk. You and your team's lives depends on it. What action will you take Hunter?</p> */}
+            <p>The infiltration operation is live Rebel. The defenses are strong, and there are ghoul hordes in the area. Your objective is to get inside the compound and retrieve the enemy intel. Make your decisions wisely, there will be much risk. You and your team's lives depends on it.</p>
             <br />
-            {/* <p>Pick an action below to learn more before committing<span className="blinker">...</span></p> */}
             {storyLine && storyLine.map((s, i) => {
-                return <div key={`scene-${i}`}>
+                return <div key={`scene-${i}`} id={`scene-${i}`}>
                     <Break />
                     <p className="text-justify mb-5 whitespace-pre-wrap">
                         {s}
@@ -85,39 +88,47 @@ const Story = () => {
                         <span className="text-red-600">/{i + 1}</span>
                     </p>
                     <div className="m-2 p-4">
-                        {Object.keys(choices[i]).map((c, j) => {
-                            return <Button key={`choices-${i}-${j}`} action={() => handleGenerate(choices[i][c])} className="text-left" disabled={loading}>{choices[i][c]}</Button>;
+                        {Object.keys(options[i]).map((c, j) => {
+                            return <Button key={`options-${i}-${j}`} action={() => handleChoice(options[i][c])} className={(choices[i] === options[i][c] ? "text-red-600 !border-red-600 opacity-80 choice " : "") + "text-left"} disabled={loading || step != i + 1}>{options[i][c]}</Button>;
                         })}
                     </div>
                 </div>
             })}
+
+            {end &&
+                <div>
+                    <center>Congrats on finishing!</center>
+                    <br />
+                    <center>Here were your choices:</center>
+                    <div className="border border-white p-2 my-2">
+                        <ul>
+                            {choices.map((c, i) => {
+                                return <li key={`choices-${i}`}>⌙ {c}</li>
+                            })}
+                        </ul>
+                    </div>
+                    <p className="mt-4 mb-2">Do you feel like you successfully completed the mission or did it end too early?</p>
+                    <div className="flex justify-center m-2 p-4 gap-x-2">
+                        {!thankyou && <>
+                            <Button action={() => poll('yes gud')}>Yes</Button>
+                            <Button action={() => poll('nar bad')}>No</Button>
+                        </>}
+                        {thankyou && <p>Thanks for your feedback!</p>}
+                    </div>
+                    <Break />
+                </div>
+            }
+
             {!loading && !storyLine.length && <div className="flex justify-center m-2 p-4 gap-x-2">
-                <Button action={() => handleGenerate()}>✨ Start Story</Button>
+                <Button action={() => generate('init')}>✨ Start Story</Button>
             </div>}
+
             {storyLine.length > 0 && <p onClick={handleReset} className="cursor-pointer text-xs">🔄 Clear &amp; Restart</p>}
-            {loading && <center className="relative my-4 mb-[100px] w-full text-xs xanimate-ellipsis">
-                writing scene
+
+            {loading && <center id="loader" className="relative my-4 mb-[100px] w-full text-xs">
+                [writing scene]
                 <FancyLoader />
             </center>}
-            {/* {storyLine && <>
-                <p className="text-center mb-5">* * * * *</p>
-                <div dangerouslySetInnerHTML={{ __html: story[storyLine].description }} />
-                <p className="text-center mb-5">* * * * *</p>
-                <div dangerouslySetInnerHTML={{ __html: story[storyLine]['steps'][step].text }} />
-                <div className="flex flex-wrap gap-x-2 m-2 p-4">
-                    {story[storyLine]['steps'][step]['choices'].map((c, i) => {
-                        return <Button key={i} action={() => { setStepResult(c.results[0].text), handleNext(c.results[0].next) }}>{c.text}</Button>
-                    })}
-                </div>
-                {stepResult && <p dangerouslySetInnerHTML={{ __html: stepResult }} />}
-                {stepResult && next !== 9999 && <><br /><Button action={() => { setStep(next), setStepResult() }}>Continue</Button></>}
-                {next === 9999 && <>
-                    <p className="text-center mb-5">* * * * *</p>
-                    <p>🁢: Your Hunt is over Rebel. Return to base.</p>
-                    <br />
-                    <Button action={() => handleReset()}>Restart</Button>
-                </>}
-            </>} */}
         </section>
     )
 }

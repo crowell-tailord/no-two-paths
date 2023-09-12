@@ -1,7 +1,9 @@
 import './globals.css'
-import { IBM_Plex_Mono } from 'next/font/google'
+// import { Stylish, Cinzel_Decorative } from 'next/font/google'
+import { textFont } from "~/util/fonts";
 
-const font = IBM_Plex_Mono({ weight: ['300', '500'], subsets: ['latin'] })
+// const stylish = Stylish({ weight: ['400'], subsets: ['latin'] })
+// const cinzel = Cinzel_Decorative({ weight: ['400'], subsets: ['latin'] })
 
 export const metadata = {
   title: '⚔️ No Two Paths',
@@ -11,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={textFont.className}>{children}</body>
     </html>
   )
 }

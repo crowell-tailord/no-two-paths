@@ -41,6 +41,10 @@ a:hover {
   @apply text-red-600;
 }
 
+#story p {
+  @apply text-2xl
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   /* height controls horizontal bar */
@@ -126,6 +130,33 @@ a:hover {
     opacity: 0
   }
 }
+
+.animate-loading {
+  position: relative;
+}
+
+.animate-loading::after {
+  content: '';
+  width: 200px;
+  background: linear-gradient(92deg, rgba(0, 0, 0, 0) 0%, rgba(76, 73, 73, 0.6) 60%, rgba(0, 0, 0, 0) 90%);
+  left: -20%;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  animation: loading 1800ms ease infinite;
+}
+
+@keyframes loading {
+  0% {
+    left: -20%;
+  }
+
+  100% {
+    left: 120%;
+  }
+}
+
 
 /* FANCY LOADER https://codepen.io/miocene/pen/WNLQKEJ */
 .loader {

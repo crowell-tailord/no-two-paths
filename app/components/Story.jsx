@@ -14,6 +14,8 @@ const Button = ({ children, action, className, disabled }) => (
 
 const Break = () => (<center className="mb-5">* * * * *</center>);
 
+const LoadingImage = () => (<div className="flex justify-center w-full h-[200px] border border-white overflow-hidden items-center animate-loading">[loading image...]</div>)
+
 const Story = () => {
     const [loading, setLoading] = useState(false)
     const [storyLine, setStoryLine] = useState([]);
@@ -22,6 +24,8 @@ const Story = () => {
     const [step, setStep] = useState(1)
     const [end, setEnd] = useState(false)
     const [thankyou, setThankyou] = useState(false)
+    const [images, setImages] = useState([])
+    // https://cdn.midjourney.com/437305b4-5208-408c-bbcc-7cfe67eeb8b9/0_0.png
 
     useEffect(() => {
         scrollStory()
@@ -46,10 +50,23 @@ const Story = () => {
             body: JSON.stringify({ content: body })
         });
         const DATA = await response.json();
-        const { output, outputOptions, ending } = DATA;
+        const { output, outputOptions, ending, imagePrompt } = DATA;
         setOptions([...options, outputOptions])
         setEnd(ending)
         setStoryLine([...storyLine, output])
+        const IMGRESP = await fetch('/api/image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(`${imagePrompt} anime style graphic --niji --ar 7:4 --q .25`)
+        });
+        const IMGDATA = await IMGRESP.json();
+        const { image } = IMGDATA;
+        // const IMAGE = await generateImage(IMGPROMPT);
+        setImages([...images, image])
+        const notif = new Audio('/notif.m4a');
+        notif.play()
         setLoading(false)
     }
 
@@ -76,12 +93,13 @@ const Story = () => {
     }
 
     return (
-        <section id="story" className="text-justify py-5 w-[70%] mx-[auto] max-h-[70vh] overflow-scroll">
+        <section id="story" className="text-justify w-[740px] h-[100vh] overflow-scroll backdrop-blur-md p-8 bg-black/60">
             <p>The infiltration operation is live Rebel. The defenses are strong, and there are ghoul hordes in the area. Your objective is to get inside the compound and retrieve the enemy intel. Make your decisions wisely, there will be much risk. You and your team's lives depends on it.</p>
             <br />
             {storyLine && storyLine.map((s, i) => {
                 return <div key={`scene-${i}`} id={`scene-${i}`}>
                     <Break />
+                    {images[i] ? <img src={images[i]} width={740} className="border border-white" /> : <LoadingImage />}
                     <p className="text-justify mb-5 whitespace-pre-wrap">
                         {s}
                         <br />
@@ -123,12 +141,12 @@ const Story = () => {
                 <Button action={() => generate('init')}>✨ Start Story</Button>
             </div>}
 
-            {storyLine.length > 0 && <p onClick={handleReset} className="cursor-pointer text-xs">🔄 Clear &amp; Restart</p>}
-
             {loading && <center id="loader" className="relative my-4 mb-[100px] w-full text-xs">
                 [writing scene]
                 <FancyLoader />
             </center>}
+
+            {storyLine.length > 0 && <span onClick={handleReset} className="cursor-pointer text-xs">🔄 Clear &amp; Restart</span>}
         </section>
     )
 }

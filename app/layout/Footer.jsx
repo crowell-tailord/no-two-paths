@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="text-center p-2">v1.3</footer>
+        <footer className="text-center text-xs p-2 font-mono">v1.4</footer>
     )
 }
 

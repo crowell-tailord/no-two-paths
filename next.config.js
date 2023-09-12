@@ -2,7 +2,8 @@
 const nextConfig = {
     images: {
         domains: [
-            'www.tokyorebels.io'
+            'www.tokyorebels.io',
+            'cdn.midjourney.com'
         ]
     }
 }

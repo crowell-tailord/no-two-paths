@@ -8,6 +8,8 @@ import { NextResponse } from "next/server";
 import OpenAI from 'openai';
 import transformations from '~/func/transformations'
 
+const baseUrl = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'
+
 const OPENAI = new OpenAI();
 
 const CHARS = `"Class: Rebel","Gender: Female","Background: Kuebiko Workshop","Weapon: Bo Staff (Fire)","Skin: Coral","Tattoo: Cherry","Eyes: Feminine Neutral (Fire)","Mouth: Smirk","Hair: Short (Acid)","Clothes: Headphones","Mask: Gasmask (Acid)","Eyewear: Punk (Acid)"`
@@ -25,6 +27,8 @@ Plot: The infiltration operation is live Rebel. The defenses are strong, and the
 Intro:
 `
 
+const IMGPROMPT = `A scene in Neo Tokyo that has been overrun with deadly red mist and in the center is an enemy base with a main front entrance guarded by ghouls, but off to the side is a secret entrance. Create this in an Anime style graphic.`
+
 function generate(prompt) {
     return OPENAI.chat.completions.create({
         model: 'gpt-3.5-turbo',
@@ -33,6 +37,14 @@ function generate(prompt) {
             content: prompt
         }]
     })
+}
+
+async function generateImage(prompt) {
+    const img = await OPENAI.images.generate({
+        prompt: prompt,
+        size: "512x512"
+    });
+    return img.data[0].url
 }
 
 export async function POST(req) {
@@ -54,6 +66,16 @@ export async function POST(req) {
     const GENERATION = await generate(content);
     const REPLY = GENERATION.choices[0].message.content;
     const TRANSFORMED = await transformations(REPLY);
+
+    // const IMGRESP = await fetch(`${baseUrl}/api/image`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(`A scene in Neo Tokyo that has been overrun with deadly red mist and in the center is an enemy base with a main front entrance guarded by ghouls, but off to the side is a secret entrance. Create this in an Anime style graphic --ar 7:4 --q .25`)
+    // });
+    // const IMGDATA = await IMGRESP.json();
+    // const { image } = IMGDATA;
 
 
     let ending = false;
@@ -90,11 +112,19 @@ export async function POST(req) {
         }
     }
 
+    const IMG_PROMPT_GEN = `Based off the Previous story Scene generate a prompt for AI image creation that portrays the scene.
+        
+    Previous Scene: ${TRANSFORMED}
+    `;
+    const IMG_PROMPT_GEN_DATA = await generate(IMG_PROMPT_GEN);
+    const IMAGEPROMPT = await IMG_PROMPT_GEN_DATA.choices[0].message.content;
+
     return NextResponse.json(
         {
             output: TRANSFORMED,
             outputOptions: choices ? JSON.parse(choices) : {},
-            ending: ending
+            ending: ending,
+            imagePrompt: IMAGEPROMPT
         },
         { status: 200 }
     );

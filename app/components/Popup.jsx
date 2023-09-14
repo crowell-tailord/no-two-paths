@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { version } from '~/util/Config'
 
 const Popup = ({ action }) => {
     const [animate, setAnimate] = useState('');
@@ -12,9 +13,9 @@ const Popup = ({ action }) => {
 
     return (
         <div className={'fixed inset-0 bg-black/70 flex justify-center items-center backdrop-blur-sm ' + animate}>
-            <div className="bg-black p-4 w-[50%] min-w-[300px] border border-dotted relative popup-content">
+            <div className="bg-black p-4 w-11/12 md:w-1/2 max-h-[90vh] overflow-scroll min-w-[300px] border border-dotted relative popup-content">
                 <center>Hello there...</center>
-                <p>Welcome to No Two Paths (v1.5)!</p>
+                <p>Welcome to No Two Paths (v{version})!</p>
                 <p>This is a beta project built by <a href="https://twitter.com/iam_cro" target="_blank">@crowexx</a>. Updates will be made daily as part of the <a href="https://twitter.com/_buildspace" target="_blank">@buildspace</a> s4 class.</p>
                 <p>Currently, the story you'll play has a pre-defined starting point, as well as a pre-defined character. However, once you start the story the options presented to you are all dynamic and unique <em>to you</em>. You will control what you'd like to do in the story.</p>
                 <p>If you ever get stuck, feel free to just hit the start over button to clear the screen.</p>

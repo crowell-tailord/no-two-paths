@@ -54,6 +54,7 @@ const Story = () => {
         setOptions([...options, outputOptions])
         setEnd(ending)
         setStoryLine([...storyLine, output])
+
         const IMGRESP = await fetch('/api/image', {
             method: 'POST',
             headers: {
@@ -63,10 +64,12 @@ const Story = () => {
         });
         const IMGDATA = await IMGRESP.json();
         const { image } = IMGDATA;
-        // const IMAGE = await generateImage(IMGPROMPT);
         setImages([...images, image])
+
         const notif = new Audio('/notif.m4a');
+        notif.volume = 0.5;
         notif.play()
+
         setLoading(false)
     }
 
@@ -93,7 +96,7 @@ const Story = () => {
     }
 
     return (
-        <section id="story" className="text-justify w-[740px] h-[100vh] overflow-scroll backdrop-blur-md p-8 bg-black/60">
+        <section id="story" className="text-justify md:w-[740px] md:h-[100vh] md:overflow-scroll backdrop-blur-md p-8 bg-black/60">
             <p>The infiltration operation is live Rebel. The defenses are strong, and there are ghoul hordes in the area. Your objective is to get inside the compound and retrieve the enemy intel. Make your decisions wisely, there will be much risk. You and your team's lives depends on it.</p>
             <br />
             {storyLine && storyLine.map((s, i) => {

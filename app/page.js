@@ -17,7 +17,7 @@ export default function Page() {
   const [show, setShow] = useState(true);
 
   return (
-    <div className="text-white bg-black bg-[url('/i/bg-wide.jpeg')] bg-center bg-cover min-h-screen">
+    <div className="text-white bg-black bg-[url('/i/bg-wide.jpeg')] bg-center bg-cover bg-fixed min-h-screen">
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-Q1T2LS6Y94" />
       <Script id="google-analytics">
         {`
@@ -29,8 +29,8 @@ export default function Page() {
         `}
       </Script>
       <Header />
-      <div className="flex flex-col items-center">
-        <main className="flex w-3/4 justify-center">
+      <div className="md:flex flex-col items-center">
+        <main className="md:flex md:w-3/4 justify-center">
           <NFTdeets />
           <Story />
         </main>

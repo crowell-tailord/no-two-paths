@@ -22,13 +22,13 @@ const NFTdeets = () => {
 
 
     return (
-        <section id="nft-deets" className={"border border-dotted p-1 bg-black w-[160px] xmax-h-[400px] h-[200px] overflow-hidden [transition:all_300ms_ease] " + (open && '!h-[400px]')}>
+        <section id="nft-deets" className={"grid grid-cols-2 md:block border border-dotted p-1 bg-black md:w-[160px] h-[200px] overflow-hidden [transition:all_300ms_ease] " + (open && '!h-[400px]')}>
             <Image src='/i/rebel-211.gif' width={150} height={150} alt="who cares" style={{ width: '150px', height: '150px' }} />
-            <div className="pt-2 flex justify-between">
+            <div className="pt-2 flex justify-between col-start-1 row-start-2">
                 <a href="https://opensea.io/assets/ethereum/0xb54420149dbe2d5b2186a3e6dc6fc9d1a58316d4/211" target="_blank">@Rebel #211</a>
-                <span className="cursor-pointer underline" onClick={() => setOpen(!open)}>{open ? 'close' : 'traits'}</span>
+                <span className="cursor-pointer underline hidden md:inline" onClick={() => setOpen(!open)}>{open ? 'close' : 'traits'}</span>
             </div>
-            <div className="xflex flex-col flex-wrap basis-3/5 gap-x-4 xmax-h-[150px] text-xs pt-2 overflow-scroll h-[200px]">
+            <div className="flex md:block flex-col flex-wrap basis-3/5 gap-x-4 text-xs pt-2 overflow-scroll md:h-[200px]">
                 {data[0].attributes.map((d, i) => {
                     return <p key={i} className="pb-1">{d.trait_type}: <br /><span className="whitespace-normal text-red-600 font-mono">{d.value}</span></p>
                 })}

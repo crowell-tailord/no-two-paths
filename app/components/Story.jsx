@@ -4,7 +4,7 @@
 ⌙ main story builder
 */
 
-import next from 'next';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import FancyLoader from '~/components/FancyLoader'
 
@@ -32,11 +32,10 @@ const Story = () => {
     // https://cdn.midjourney.com/437305b4-5208-408c-bbcc-7cfe67eeb8b9/0_0.png
 
     useEffect(() => {
-        generate('init')
+        !started && generate('init')
     }, [])
 
     useEffect(() => {
-        console.log(storyLine)
         if (loading) {
             setLoading(false)
         }
@@ -95,41 +94,48 @@ const Story = () => {
             setBroke(true);
             return;
         }
+
         if (body === 'init') {
             setOptions([...options, outputOptions])
             setStoryLine([...storyLine, output])
-            console.log(outputOptions)
             Object.keys(outputOptions).map(i => {
                 handleChoice(outputOptions[i])
             })
+            //delay image gen for after setting these ^
+            const image = await generateImage(imagePrompt)
+            setImages([...images, image])
         } else {
+            const image = await generateImage(imagePrompt)
             const nextSegment = {
                 story: output,
-                options: outputOptions
+                options: outputOptions,
+                image: image
             }
             //need to pass prev state to avoid asyncronous overwriting!
             setNextStoryLine((prevNextStoryLine) => [...prevNextStoryLine, nextSegment]);
-
+            setEnd(ending)
         }
 
-        setEnd(ending)
-
-        // const IMGRESP = await fetch('/api/image', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(`${imagePrompt} anime style graphic --niji --ar 7:4 --q .25`)
-        // });
-        // const IMGDATA = await IMGRESP.json();
-        // const { image } = IMGDATA;
-        // setImages([...images, image])
 
         // const notif = new Audio('/notif.m4a');
         // notif.volume = 0.5;
         // started && notif.play()
 
         // setLoading(false)
+    }
+
+    const generateImage = async (body) => {
+        const IMGRESP = await fetch('/api/image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(`${body} anime style graphic --niji --ar 7:4 --q .25`)
+        });
+        const IMGDATA = await IMGRESP.json();
+        const { image } = IMGDATA;
+        console.log(image)
+        return image;
     }
 
     const handleChoice = (choice, set) => {
@@ -146,13 +152,11 @@ const Story = () => {
             setHoldingChoice(choice)
             return;
         }
-        console.log('next', nextStoryLine)
-        console.log('c', choice)
         const NEXTLINE = nextStoryLine[choice];
-        console.log(NEXTLINE)
         setNextStoryLine([])
         setOptions([...options, NEXTLINE.options])
         setStoryLine([...storyLine, NEXTLINE.story])
+        setImages([...images, NEXTLINE.image])
         // console.log(outputOptions)
         Object.keys(NEXTLINE.options).map(i => {
             handleChoice(NEXTLINE.options[i])
@@ -198,7 +202,8 @@ const Story = () => {
             {started && storyLine && storyLine.map((s, i) => {
                 return <div key={`scene-${i}`} id={`scene-${i}`}>
                     <Break />
-                    {/* {images[i] ? <img src={images[i]} width={740} className="border border-white" /> : <LoadingImage />} */}
+                    {images[i] ? <img src={images[i]} width={740} className="border border-white" /> : <LoadingImage />}
+                    {/* {images[i] ? <Image src={images[i]} width={740} height={420} alt={`storyimage-${i}`} quality={60} className="border border-white" /> : <LoadingImage />} */}
                     <p className="text-justify mb-5 whitespace-pre-wrap">
                         {s}
                         <br />

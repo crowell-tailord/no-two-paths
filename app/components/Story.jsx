@@ -4,9 +4,9 @@
 ⌙ main story builder
 */
 
+import next from 'next';
 import { useState, useEffect } from 'react';
 import FancyLoader from '~/components/FancyLoader'
-// import story from '~/data/huntOneStory.json'
 
 const Button = ({ children, action, className, disabled }) => (
     <button className={'border border-white px-4 mb-2 block ' + className + (disabled ? ' opacity-30' : ' hover:bg-white hover:text-black')} onClick={action} disabled={disabled}>{children}</button>
@@ -17,18 +17,53 @@ const Break = () => (<center className="mb-5">* * * * *</center>);
 const LoadingImage = () => (<div className="flex justify-center w-full h-[200px] border border-white overflow-hidden items-center animate-loading">[loading image...]</div>)
 
 const Story = () => {
+    const [started, setStarted] = useState(false)
     const [loading, setLoading] = useState(false)
     const [storyLine, setStoryLine] = useState([]);
+    const [choices, setChoices] = useState([]);
     const [options, setOptions] = useState([]);
-    const [choices, setChoices] = useState([])
+    const [nextStoryLine, setNextStoryLine] = useState([])
+    const [holdingChoice, setHoldingChoice] = useState(null)
     const [step, setStep] = useState(1)
     const [end, setEnd] = useState(false)
     const [thankyou, setThankyou] = useState(false)
     const [images, setImages] = useState([])
+    const [broke, setBroke] = useState(false)
     // https://cdn.midjourney.com/437305b4-5208-408c-bbcc-7cfe67eeb8b9/0_0.png
 
     useEffect(() => {
-        scrollStory()
+        generate('init')
+    }, [])
+
+    useEffect(() => {
+        console.log(storyLine)
+        if (loading) {
+            setLoading(false)
+        }
+    }, [storyLine])
+
+    useEffect(() => {
+        started && trackInit()
+        if (!storyLine.length & started) {
+            setLoading(true);
+        }
+    }, [started])
+
+    useEffect(() => {
+        console.log('the next segmentss', nextStoryLine)
+        //skip the first story line creation
+        if (holdingChoice != null && nextStoryLine.length === 2) {
+            selectChoice(holdingChoice)
+            setLoading(false)
+            setHoldingChoice(null)
+        }
+    }, [nextStoryLine])
+
+    useEffect(() => {
+        // started && scrollStory()
+        if (loading) {
+
+        }
     }, [loading])
 
     const handleReset = () => {
@@ -38,10 +73,15 @@ const Story = () => {
         setEnd(false)
         setLoading(false)
         setThankyou(false)
+        setStarted(false)
+        setNextStoryLine([])
+        setHoldingChoice(null)
+        setStep(1)
+        setImages([])
     }
 
     const generate = async (body) => {
-        setLoading(true);
+        // setLoading(true);
         const response = await fetch('/api/ai', {
             method: 'POST',
             headers: {
@@ -51,33 +91,77 @@ const Story = () => {
         });
         const DATA = await response.json();
         const { output, outputOptions, ending, imagePrompt } = DATA;
-        setOptions([...options, outputOptions])
+        if (!outputOptions.Option1) {
+            setBroke(true);
+            return;
+        }
+        if (body === 'init') {
+            setOptions([...options, outputOptions])
+            setStoryLine([...storyLine, output])
+            console.log(outputOptions)
+            Object.keys(outputOptions).map(i => {
+                handleChoice(outputOptions[i])
+            })
+        } else {
+            const nextSegment = {
+                story: output,
+                options: outputOptions
+            }
+            //need to pass prev state to avoid asyncronous overwriting!
+            setNextStoryLine((prevNextStoryLine) => [...prevNextStoryLine, nextSegment]);
+
+        }
+
         setEnd(ending)
-        setStoryLine([...storyLine, output])
 
-        const IMGRESP = await fetch('/api/image', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(`${imagePrompt} anime style graphic --niji --ar 7:4 --q .25`)
-        });
-        const IMGDATA = await IMGRESP.json();
-        const { image } = IMGDATA;
-        setImages([...images, image])
+        // const IMGRESP = await fetch('/api/image', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(`${imagePrompt} anime style graphic --niji --ar 7:4 --q .25`)
+        // });
+        // const IMGDATA = await IMGRESP.json();
+        // const { image } = IMGDATA;
+        // setImages([...images, image])
 
-        const notif = new Audio('/notif.m4a');
-        notif.volume = 0.5;
-        notif.play()
+        // const notif = new Audio('/notif.m4a');
+        // notif.volume = 0.5;
+        // started && notif.play()
 
-        setLoading(false)
+        // setLoading(false)
     }
 
     const handleChoice = (choice, set) => {
         const BODY = `${storyLine} \n\n Last Decision: ${choice}`
         generate(BODY)
-        setChoices([...choices, choice])
+        // setChoices([...choices, choice])
+        // setStep(step + 1)
+    }
+
+    const selectChoice = (choice) => {
+        //either 0 or 1
+        if (!nextStoryLine.length) {
+            setLoading(true);
+            setHoldingChoice(choice)
+            return;
+        }
+        console.log('next', nextStoryLine)
+        console.log('c', choice)
+        const NEXTLINE = nextStoryLine[choice];
+        console.log(NEXTLINE)
+        setNextStoryLine([])
+        setOptions([...options, NEXTLINE.options])
+        setStoryLine([...storyLine, NEXTLINE.story])
+        // console.log(outputOptions)
+        Object.keys(NEXTLINE.options).map(i => {
+            handleChoice(NEXTLINE.options[i])
+        })
         setStep(step + 1)
+    }
+
+    const checkForStory = () => {
+
     }
 
     const scrollStory = () => {
@@ -95,14 +179,26 @@ const Story = () => {
         setThankyou(true)
     }
 
+    const trackInit = () => {
+        window.gtag('event', 'start story');
+    }
+
+    if (broke) {
+        return (
+            <section id="story" className="text-justify md:w-[740px] md:h-[100vh] md:overflow-scroll backdrop-blur-md p-8 bg-black/60">
+                So sorry! The game broke itself, just refresh the page to start again please!
+            </section>
+        )
+    }
+
     return (
         <section id="story" className="text-justify md:w-[740px] md:h-[100vh] md:overflow-scroll backdrop-blur-md p-8 bg-black/60">
             <p>The infiltration operation is live Rebel. The defenses are strong, and there are ghoul hordes in the area. Your objective is to get inside the compound and retrieve the enemy intel. Make your decisions wisely, there will be much risk. You and your team's lives depends on it.</p>
             <br />
-            {storyLine && storyLine.map((s, i) => {
+            {started && storyLine && storyLine.map((s, i) => {
                 return <div key={`scene-${i}`} id={`scene-${i}`}>
                     <Break />
-                    {images[i] ? <img src={images[i]} width={740} className="border border-white" /> : <LoadingImage />}
+                    {/* {images[i] ? <img src={images[i]} width={740} className="border border-white" /> : <LoadingImage />} */}
                     <p className="text-justify mb-5 whitespace-pre-wrap">
                         {s}
                         <br />
@@ -110,7 +206,7 @@ const Story = () => {
                     </p>
                     <div className="m-2 p-4">
                         {Object.keys(options[i]).map((c, j) => {
-                            return <Button key={`options-${i}-${j}`} action={() => handleChoice(options[i][c])} className={(choices[i] === options[i][c] ? "text-red-600 !border-red-600 opacity-80 choice " : "") + "text-left"} disabled={loading || step != i + 1}>{options[i][c]}</Button>;
+                            return <Button key={`options-${i}-${j}`} action={() => selectChoice(j)} className={(choices[i] === options[i][c] ? "text-red-600 !border-red-600 opacity-80 choice " : "") + "text-left"} disabled={loading || step != i + 1}>{options[i][c]}</Button>;
                         })}
                     </div>
                 </div>
@@ -140,16 +236,16 @@ const Story = () => {
                 </div>
             }
 
-            {!loading && !storyLine.length && <div className="flex justify-center m-2 p-4 gap-x-2">
-                <Button action={() => generate('init')}>✨ Start Story</Button>
+            {!started && <div className="flex justify-center m-2 p-4 gap-x-2">
+                <Button action={() => setStarted(true)}>✨ Start Story</Button>
             </div>}
 
-            {loading && <center id="loader" className="relative my-4 mb-[100px] w-full text-xs">
+            {loading && started && <center id="loader" className="relative my-4 mb-[100px] w-full text-xs">
                 [writing scene]
                 <FancyLoader />
             </center>}
 
-            {storyLine.length > 0 && <span onClick={handleReset} className="cursor-pointer text-xs">🔄 Clear &amp; Restart</span>}
+            {storyLine.length > 0 && started && <span onClick={handleReset} className="cursor-pointer text-xs">🔄 Clear &amp; Restart</span>}
         </section>
     )
 }

@@ -31,6 +31,23 @@ Intro:
 
 const IMGPROMPT = `A scene in Neo Tokyo that has been overrun with deadly red mist and in the center is an enemy base with a main front entrance guarded by ghouls, but off to the side is a secret entrance. Create this in an Anime style graphic.`;
 
+function parseOptions(text) {
+  try {
+    const data = JSON.parse(text);
+    if (data.Option1 && data.Option2) return data;
+  } catch (err) {
+    // fallback to extracting JSON object if extra text is present
+    const match = text.match(/\{[\s\S]*\}/);
+    if (match) {
+      try {
+        const data = JSON.parse(match[0]);
+        if (data.Option1 && data.Option2) return data;
+      } catch (_) {}
+    }
+  }
+  return null;
+}
+
 // const response = await openai.responses.create({
 //     model: "o4-mini",
 //     reasoning: { effort: "medium" },
@@ -127,24 +144,15 @@ export async function POST(req) {
 
     Scene: ${TRANSFORMED}`;
 
-    let success = false;
-    while (success === false) {
-      let i = 0;
+    let attempts = 0;
+    let parsed = null;
+    while (!parsed && attempts < 5) {
       const DATA = await generate(CHOICESPROMPT);
-      // choices = await DATA.output[0].content[0].text;
-      choices = DATA.output_text;
-
-      try {
-        JSON.parse(choices);
-      } catch (error) {
-        console.error(error);
-        i = 1;
-      } finally {
-        if (!i) {
-          success = true;
-        }
-      }
+      const text = DATA.output_text.trim();
+      parsed = parseOptions(text);
+      attempts++;
     }
+    choices = parsed;
   }
 
   const IMG_PROMPT_GEN = `Based off the Previous story Scene describe the environment and what action is occurring. 50 words maximum. No periods:
@@ -159,7 +167,7 @@ export async function POST(req) {
   return NextResponse.json(
     {
       output: TRANSFORMED,
-      outputOptions: choices ? JSON.parse(choices) : {},
+      outputOptions: choices || {},
       ending: ending,
       imagePrompt: IMAGEPROMPT,
     },

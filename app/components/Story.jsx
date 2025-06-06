@@ -1,5 +1,5 @@
 /*
-....2x23■■
+....2x25■■
 .....crøwexx
 ⌙ main story builder
 */
@@ -8,8 +8,10 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import FancyLoader from '~/components/FancyLoader'
 
+const HEADERS = {'Content-Type':'application/json'};
+
 const Button = ({ children, action, className, disabled }) => (
-    <button className={'border border-white px-4 mb-2 block ' + className + (disabled ? ' opacity-30' : ' hover:bg-white hover:text-black')} onClick={action} disabled={disabled}>{children}</button>
+    <button className={'border border-white px-4 mb-2 block cursor-pointer ' + className + (disabled ? ' opacity-30' : ' hover:bg-white hover:text-black')} onClick={action} disabled={disabled}>{children}</button>
 )
 
 const Break = () => (<center className="mb-5">* * * * *</center>);
@@ -17,29 +19,29 @@ const Break = () => (<center className="mb-5">* * * * *</center>);
 const LoadingImage = () => (<div className="flex justify-center w-full h-[200px] border border-white overflow-hidden items-center animate-loading">[loading image...]</div>)
 
 const Story = () => {
-    const [started, setStarted] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [storyLine, setStoryLine] = useState([]);
-    const [choices, setChoices] = useState([]);
-    const [options, setOptions] = useState([]);
-    const [nextStoryLine, setNextStoryLine] = useState([])
-    const [holdingChoice, setHoldingChoice] = useState(null)
-    const [step, setStep] = useState(1)
-    const [end, setEnd] = useState(false)
-    const [thankyou, setThankyou] = useState(false)
-    const [images, setImages] = useState([])
     const [broke, setBroke] = useState(false)
+    const [choices, setChoices] = useState([]);
+    const [end, setEnd] = useState(false)
+    const [holdingChoice, setHoldingChoice] = useState(null)
+    const [images, setImages] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [nextStoryLine, setNextStoryLine] = useState([])
+    const [options, setOptions] = useState([]);
+    const [started, setStarted] = useState(false)
+    const [step, setStep] = useState(1)
+    const [storyLine, setStoryLine] = useState([]);
+    const [thankyou, setThankyou] = useState(false)
     // https://cdn.midjourney.com/437305b4-5208-408c-bbcc-7cfe67eeb8b9/0_0.png
 
     useEffect(() => {
         !started && generate('init')
     }, [])
 
-    useEffect(() => {
-        if (loading) {
-            setLoading(false)
-        }
-    }, [storyLine])
+    // useEffect(() => {
+    //     if (loading) {
+    //         setLoading(false)
+    //     }
+    // }, [storyLine])
 
     useEffect(() => {
         started && trackInit()
@@ -49,7 +51,7 @@ const Story = () => {
     }, [started])
 
     useEffect(() => {
-        console.log('the next segmentss', nextStoryLine)
+        console.log('the next segments', nextStoryLine)
         //skip the first story line creation
         if (holdingChoice != null && nextStoryLine.length === 2) {
             selectChoice(holdingChoice)
@@ -58,12 +60,12 @@ const Story = () => {
         }
     }, [nextStoryLine])
 
-    useEffect(() => {
-        // started && scrollStory()
-        if (loading) {
+    // useEffect(() => {
+    //     // started && scrollStory()
+    //     if (loading) {
 
-        }
-    }, [loading])
+    //     }
+    // }, [loading])
 
     const handleReset = () => {
         setStoryLine([])
@@ -80,21 +82,27 @@ const Story = () => {
     }
 
     const generate = async (body) => {
-        // setLoading(true);
-        const response = await fetch('/api/ai', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ content: body })
-        });
-        const DATA = await response.json();
-        const { output, outputOptions, ending, imagePrompt } = DATA;
-        if (!outputOptions.Option1) {
-            setBroke(true);
-            return;
+        setLoading(true);
+
+        let storyObj = {};
+        try {
+            const response = await fetch('/api/ai', {
+                method: 'POST',
+                headers: HEADERS,
+                body: JSON.stringify({content:body})
+            });
+            storyObj = await response.json();
+        } catch(e) {
+            console.error((e.message))
         }
 
+        const { output, outputOptions, ending, imagePrompt } = storyObj;
+        if(!output || !outputOptions.Option1 || !imagePrompt) {
+            setBroke(true);
+            console.error({output,outputOptions,imagePrompt})
+            return;
+        }
+        
         if (body === 'init') {
             setOptions([...options, outputOptions])
             setStoryLine([...storyLine, output])
@@ -116,26 +124,25 @@ const Story = () => {
             setEnd(ending)
         }
 
-
         // const notif = new Audio('/notif.m4a');
         // notif.volume = 0.5;
         // started && notif.play()
 
-        // setLoading(false)
+        setLoading(false);
     }
 
     const generateImage = async (body) => {
-        const IMGRESP = await fetch('/api/image', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(`${body} anime style graphic --niji --ar 7:4 --q .25`)
-        });
-        const IMGDATA = await IMGRESP.json();
-        const { image } = IMGDATA;
-        console.log(image)
-        return image;
+        try {
+            const IMGRESP = await fetch('/api/chatimage', {
+                method: 'POST',
+                headers: HEADERS,
+                body: JSON.stringify(`${body}`)
+            });
+            const {image} = await IMGRESP.json();
+            return image;
+        } catch(e) {
+            console.error(JSON.stringify(e))
+        }
     }
 
     const handleChoice = (choice, set) => {
@@ -202,7 +209,7 @@ const Story = () => {
             {started && storyLine && storyLine.map((s, i) => {
                 return <div key={`scene-${i}`} id={`scene-${i}`}>
                     <Break />
-                    {images[i] ? <img src={images[i]} width={740} className="border border-white" /> : <LoadingImage />}
+                    {images[i] ? <img src={`data:image/png;base64, ${images[i]}`} width={740} className="border border-white" /> : <LoadingImage />}
                     {/* {images[i] ? <Image src={images[i]} width={740} height={420} alt={`storyimage-${i}`} quality={60} className="border border-white" /> : <LoadingImage />} */}
                     <p className="text-justify mb-5 whitespace-pre-wrap">
                         {s}

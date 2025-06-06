@@ -14,7 +14,7 @@ import Story from '~/components/Story';
 import Popup from '~/components/Popup';
 
 export default function Page() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   return (
     <div className="text-white bg-black bg-[url('/i/bg-wide.jpeg')] bg-center bg-cover bg-fixed min-h-screen">

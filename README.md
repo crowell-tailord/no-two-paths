@@ -8,11 +8,13 @@ Built with:
 - Midjourney (via The Next Leg)
 
 ### todo
-- [ ] build character creation func
-- [ ] incorporate perilous endings
-- [ ] ensure story has enough length
-- [ ] chainlinking longer stories
 - [ ] refine image generation prompts
+- [ ] need to retain choices in red
+- [ ] chainlinking/summarizing longer stories
+- [ ] incorporate perilous endings
+- [ ] build character creation func
+- [ ] ensure story has enough length
+- [x] need to have initial loading screen when 'start story'
 - [x] auto generate scene images
 - [x] disable/highlight choices
 - [x] logic for determining end of story

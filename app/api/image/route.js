@@ -4,13 +4,18 @@ import { NextResponse } from "next/server";
 const KEY = process.env.TNL_API_KEY;
 const tnl = new TNL(KEY);
 
+const CHARACTER = `Main female Character with her fiery bo staff, who has coral colored skin and a cherry tattoo, her eyes are fiery and a smirk on her face, short acid colored hair fluttering in the wind, wearing headphones and a acid colored gasmask and punk-styled, spiked acid colored goggles`
+const PROMPTS = `--ar 7:4 --q .25 --niji`
+const DESCRIBERS = `Anime style graphic, high contrast lighting, warm tones, colorful palete, award-winning`
+
 function sleep(milliseconds) {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
 export async function POST(req) {
-    const DATA = await req.json();
-    const response = await tnl.imagine(DATA);
+    const ENVIRONMENT_EVENT = await req.json();
+    const PROMPT = `digital painting of ${ENVIRONMENT_EVENT} and the ${CHARACTER} is in the scene, ${DESCRIBERS} ${PROMPTS}`
+    const response = await tnl.imagine(PROMPT);
     const MSGID = response.messageId;
 
     const fetchToCompletion = async (messageId, retryCount, maxRetry = 20) => {
@@ -37,7 +42,7 @@ export async function POST(req) {
 
     const completedImageData = await fetchToCompletion(
         MSGID,
-        0,
+        2,
     );
 
     console.log('\n=====================');

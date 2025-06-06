@@ -1,5 +1,5 @@
 /*
-....2x25■■
+....2x23■■
 .....crøwexx
 ⌙ the *ai*
 */
@@ -31,31 +31,11 @@ Intro:
 
 const IMGPROMPT = `A scene in Neo Tokyo that has been overrun with deadly red mist and in the center is an enemy base with a main front entrance guarded by ghouls, but off to the side is a secret entrance. Create this in an Anime style graphic.`;
 
-// const response = await openai.responses.create({
-//     model: "o4-mini",
-//     reasoning: { effort: "medium" },
-//     input: [
-//         {
-//             role: "user",
-//             content: prompt,
-//         },
-//     ],
-// });
-
-// console.log(response.output_text);
-
 function generate(prompt) {
-  console.log('_____generating....______');
-  return openai.responses.create({
-    model: 'o4-mini',
-    // input: prompt,
-    input: [
-      {
-        role: 'user',
-        content: prompt,
-      },
-    ],
-  });
+  return (response = openai.responses.create({
+    model: 'gpt-4.1',
+    input: prompt,
+  }));
 }
 //   return OPENAI.chat.completions.create({
 //     model: 'gpt-3.5-turbo',
@@ -69,13 +49,13 @@ function generate(prompt) {
 //   });
 // }
 
-// async function generateImage(prompt) {
-//   const img = await OPENAI.images.generate({
-//     prompt: prompt,
-//     size: '512x512',
-//   });
-//   return img.data[0].url;
-// }
+async function generateImage(prompt) {
+  const img = await OPENAI.images.generate({
+    prompt: prompt,
+    size: '512x512',
+  });
+  return img.data[0].url;
+}
 
 export async function POST(req) {
   console.log('_____starting story gen______');
@@ -86,17 +66,16 @@ export async function POST(req) {
   if (!INIT) {
     // console.log("STORY SO FAR \n\n", content)
     content = `Continue the existing story below and write the next scene (3 paragraphs maximum) based off the Main Character's Last Decision. Remember to keep in mind the Main Character's Characteristics when writing the next scene:
-      
-      ${content}
-      
-      Main Character Characteristics: ${CHARS}
-      
-      Next Scene:
-      `;
+        
+        ${content}
+    
+        Main Character Characteristics: ${CHARS}
+    
+        Next Scene:
+        `;
   }
   const GENERATION = await generate(content);
-  // const REPLY = GENERATION.output[0].content[0].text;
-  const REPLY = GENERATION.output_text;
+  const REPLY = GENERATION.output[0].content[0].text;
   const TRANSFORMED = await transformations(REPLY);
 
   // const IMGRESP = await fetch(`${baseUrl}/api/image`, {
@@ -117,23 +96,21 @@ export async function POST(req) {
         `;
 
     const DATA = await generate(ENDING_PROMPT);
-    // ending = DATA.output[0].content[0].text === 'YES';
-    ending = DATA.output_text === 'YES';
+    ending = DATA.choices[0].message.content === 'YES';
   }
 
   let choices;
   if (!ending || INIT) {
-    const CHOICESPROMPT = `Take the scene below and generate 2 optional next steps in JSON format for the Main Character. You are to output only valid JSON in this exact format: {"Option1":"...","Option2":"..."}. No other text or formatting. Each option must be 10 words or fewer.
-
-    Scene: ${TRANSFORMED}`;
+    const CHOICESPROMPT = `Take the scene below and generate 2 optional next steps in JSON format for the Main Character. 10 words maximum for each option. Each JSON object key should be like "Option1", "Option2", etc.
+        
+        Scene: ${TRANSFORMED}
+        `;
 
     let success = false;
     while (success === false) {
       let i = 0;
       const DATA = await generate(CHOICESPROMPT);
-      // choices = await DATA.output[0].content[0].text;
-      choices = DATA.output_text;
-
+      choices = await DATA.output[0].content[0].text;
       try {
         JSON.parse(choices);
       } catch (error) {
@@ -148,14 +125,15 @@ export async function POST(req) {
   }
 
   const IMG_PROMPT_GEN = `Based off the Previous story Scene describe the environment and what action is occurring. 50 words maximum. No periods:
-
+        
     Previous Scene: ${TRANSFORMED}
     `;
   const IMG_PROMPT_GEN_DATA = await generate(IMG_PROMPT_GEN);
-  // const IMAGEPROMPT = await IMG_PROMPT_GEN_DATA.output[0].content[0].text;
-  const IMAGEPROMPT = IMG_PROMPT_GEN_DATA.output_text;
+  const IMAGEPROMPT = await IMG_PROMPT_GEN_DATA.output[0].content[0].text;
 
+  console.log(IMAGEPROMPT);
   console.log('_____end story gen______');
+
   return NextResponse.json(
     {
       output: TRANSFORMED,

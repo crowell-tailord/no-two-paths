@@ -35,8 +35,7 @@ function parseOptions(text) {
   try {
     const data = JSON.parse(text);
     if (data.Option1 && data.Option2) return data;
-  } catch (err) {
-    // fallback to extracting JSON object if extra text is present
+  } catch (_) {
     const match = text.match(/\{[\s\S]*\}/);
     if (match) {
       try {
@@ -44,6 +43,15 @@ function parseOptions(text) {
         if (data.Option1 && data.Option2) return data;
       } catch (_) {}
     }
+  }
+
+  const opt1 = text.match(/Option\s*1\s*[:\-]\s*(.+)/i);
+  const opt2 = text.match(/Option\s*2\s*[:\-]\s*(.+)/i);
+  if (opt1 && opt2) {
+    return {
+      Option1: opt1[1].trim().replace(/^"|"$/g, ''),
+      Option2: opt2[1].trim().replace(/^"|"$/g, ''),
+    };
   }
   return null;
 }
@@ -140,9 +148,12 @@ export async function POST(req) {
 
   let choices;
   if (!ending || INIT) {
-    const CHOICESPROMPT = `Take the scene below and generate 2 optional next steps in JSON format for the Main Character. You are to output only valid JSON in this exact format: {"Option1":"...","Option2":"..."}. No other text or formatting. Each option must be 10 words or fewer.
+    const CHOICESPROMPT = `Take the scene below and craft two short next-step choices.
+Return ONLY a JSON object in this exact format:
+{"Option1":"<10 words or less>","Option2":"<10 words or less>"}
+Do not include any other text or formatting.
 
-    Scene: ${TRANSFORMED}`;
+Scene: ${TRANSFORMED}`;
 
     let attempts = 0;
     let parsed = null;

@@ -6,7 +6,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import data from '~/data/rebel211.json'
+import data from '/data/rebel211.json'
 
 const NFTdeets = () => {
     const [open, setOpen] = useState(false);

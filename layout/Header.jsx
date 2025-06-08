@@ -1,5 +1,5 @@
-import { titleFont } from "~/util/fonts";
-import Footer from '~/layout/Footer'
+import { titleFont } from "/util/fonts";
+import Footer from '/layout/Footer'
 
 const Header = () => {
     return (

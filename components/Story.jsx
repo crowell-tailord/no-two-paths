@@ -6,7 +6,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import FancyLoader from '~/components/FancyLoader'
+import FancyLoader from 'components/FancyLoader'
 
 const HEADERS = {'Content-Type':'application/json'};
 
@@ -86,7 +86,7 @@ const Story = () => {
 
         let storyObj = {};
         try {
-            const response = await fetch('/api/ai', {
+            const response = await fetch('/api/storygen', {
                 method: 'POST',
                 headers: HEADERS,
                 body: JSON.stringify({content:body})
@@ -133,7 +133,7 @@ const Story = () => {
 
     const generateImage = async (body) => {
         try {
-            const IMGRESP = await fetch('/api/chatimage', {
+            const IMGRESP = await fetch('/api/imagegen', {
                 method: 'POST',
                 headers: HEADERS,
                 body: JSON.stringify(`${body}`)

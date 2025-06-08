@@ -4,7 +4,7 @@
 ⌙ the chatGPT images
 */
 
-import { NextResponse } from 'next/server';
+// import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import fs from 'fs';
 
@@ -38,19 +38,28 @@ async function generate(prompt) {
   }
 }
 
-export async function POST(req) {
-  const ENVIRONMENT_EVENT = await req.json();
-  if (!ENVIRONMENT_EVENT) return NextResponse.error('no text found for image');
+const handler = async (req, res) => {
+  if (req.method !== 'POST')
+    return res.status(405).json({ message: `must use POST` });
+  // export async function POST(req) {
+  const ENVIRONMENT_EVENT = req.body;
+  if (!ENVIRONMENT_EVENT)
+    return res.status(500).json({ message: 'no text found for image' });
 
   const PROMPT = `create an image of ${ENVIRONMENT_EVENT} and the ${CHARACTER} is in the scene in the style of ${DESCRIBERS}`;
 
   const response = await generate(PROMPT);
 
   console.log('_____end image gen______');
-  return NextResponse.json(
-    {
-      image: response,
-    },
-    { status: 200 }
-  );
-}
+  return res.status(200).json({
+    image: response,
+  });
+  // return NextResponse.json(
+  //   {
+  //     image: response,
+  //   },
+  //   { status: 200 }
+  // );
+};
+
+export default handler;

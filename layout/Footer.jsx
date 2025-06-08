@@ -1,4 +1,4 @@
-import { version } from '~/util/Config'
+import { version } from 'util/Config'
 
 const Footer = () => {
     return (

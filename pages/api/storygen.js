@@ -4,7 +4,7 @@
 ⌙ the *ai*
 */
 
-import { NextResponse } from 'next/server';
+// import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import transformations from '~/func/transformations';
 
@@ -30,6 +30,31 @@ Intro:
 `;
 
 const IMGPROMPT = `A scene in Neo Tokyo that has been overrun with deadly red mist and in the center is an enemy base with a main front entrance guarded by ghouls, but off to the side is a secret entrance. Create this in an Anime style graphic.`;
+
+function parseOptions(text) {
+  try {
+    const data = JSON.parse(text);
+    if (data.Option1 && data.Option2) return data;
+  } catch (_) {
+    const match = text.match(/\{[\s\S]*\}/);
+    if (match) {
+      try {
+        const data = JSON.parse(match[0]);
+        if (data.Option1 && data.Option2) return data;
+      } catch (_) {}
+    }
+  }
+
+  const opt1 = text.match(/Option\s*1\s*[:\-]\s*(.+)/i);
+  const opt2 = text.match(/Option\s*2\s*[:\-]\s*(.+)/i);
+  if (opt1 && opt2) {
+    return {
+      Option1: opt1[1].trim().replace(/^"|"$/g, ''),
+      Option2: opt2[1].trim().replace(/^"|"$/g, ''),
+    };
+  }
+  return null;
+}
 
 // const response = await openai.responses.create({
 //     model: "o4-mini",
@@ -77,9 +102,12 @@ function generate(prompt) {
 //   return img.data[0].url;
 // }
 
-export async function POST(req) {
+const handler = async (req, res) => {
+  if (req.method !== 'POST')
+    return res.status(405).json({ message: `must use POST` });
+  // export async function POST(req) {
   console.log('_____starting story gen______');
-  const DATA = await req.json();
+  const DATA = req.body;
   const INIT = DATA.content === 'init' ? true : false;
   // console.log(DATA)
   let content = INIT ? INITPROMPT : DATA.content;
@@ -123,28 +151,22 @@ export async function POST(req) {
 
   let choices;
   if (!ending || INIT) {
-    const CHOICESPROMPT = `Take the scene below and generate 2 optional next steps in JSON format for the Main Character. You are to output only valid JSON in this exact format: {"Option1":"...","Option2":"..."}. No other text or formatting. Each option must be 10 words or fewer.
+    const CHOICESPROMPT = `Take the scene below and craft two short next-step choices.
+Return ONLY a JSON object in this exact format:
+{"Option1":"<10 words or less>","Option2":"<10 words or less>"}
+Do not include any other text or formatting.
 
-    Scene: ${TRANSFORMED}`;
+Scene: ${TRANSFORMED}`;
 
-    let success = false;
-    while (success === false) {
-      let i = 0;
+    let attempts = 0;
+    let parsed = null;
+    while (!parsed && attempts < 5) {
       const DATA = await generate(CHOICESPROMPT);
-      // choices = await DATA.output[0].content[0].text;
-      choices = DATA.output_text;
-
-      try {
-        JSON.parse(choices);
-      } catch (error) {
-        console.error(error);
-        i = 1;
-      } finally {
-        if (!i) {
-          success = true;
-        }
-      }
+      const text = DATA.output_text.trim();
+      parsed = parseOptions(text);
+      attempts++;
     }
+    choices = parsed;
   }
 
   const IMG_PROMPT_GEN = `Based off the Previous story Scene describe the environment and what action is occurring. 50 words maximum. No periods:
@@ -156,13 +178,21 @@ export async function POST(req) {
   const IMAGEPROMPT = IMG_PROMPT_GEN_DATA.output_text;
 
   console.log('_____end story gen______');
-  return NextResponse.json(
-    {
-      output: TRANSFORMED,
-      outputOptions: choices ? JSON.parse(choices) : {},
-      ending: ending,
-      imagePrompt: IMAGEPROMPT,
-    },
-    { status: 200 }
-  );
-}
+  return res.status(200).json({
+    output: TRANSFORMED,
+    outputOptions: choices || {},
+    ending: ending,
+    imagePrompt: IMAGEPROMPT,
+  });
+  // return NextResponse.json(
+  //   {
+  //     output: TRANSFORMED,
+  //     outputOptions: choices || {},
+  //     ending: ending,
+  //     imagePrompt: IMAGEPROMPT,
+  //   },
+  //   { status: 200 }
+  // );
+};
+
+export default handler;

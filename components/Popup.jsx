@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { version } from '~/util/Config'
+import { version } from 'util/Config'
 
 const Popup = ({ action }) => {
     const [animate, setAnimate] = useState('');

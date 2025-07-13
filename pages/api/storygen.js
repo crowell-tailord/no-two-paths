@@ -4,23 +4,58 @@
 ⌙ the *ai*
 */
 
-// import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import transformations from '~/func/transformations';
-
-const baseUrl = process.env.VERCEL_URL
-  ? 'https://' + process.env.VERCEL_URL
-  : 'http://localhost:3000';
-
+import transformations from '/func/transformations';
 const openai = new OpenAI();
 
-const CHARS = `"Class: Rebel","Gender: Female","Background: Kuebiko Workshop","Weapon: Bo Staff (Fire)","Skin: Coral","Tattoo: Cherry","Eyes: Feminine Neutral (Fire)","Mouth: Smirk","Hair: Short (Acid)","Clothes: Headphones","Mask: Gasmask (Acid)","Eyewear: Punk (Acid)"`;
+/*
+1/ generate init prompt with 2 choices, and image desc
+2/ generate image
+3/ summarize
+4/ generate choice 1, with 2 choices, and image desc
+5/ generate choice 2, with 2 choices and image desc
+6/ generate choice 1 image
+7/ summarize up to choice 1
+8/ generate choice 2 image
+9/ summarize up to choice 2
+*/
 
-const INITPROMPT = `Write me the first two paragrahps of a Choose Your Own Adventure style story. The Main Character is a Rebel. The Main Character has specific Characteristics that define them. Do not list any options in the Intro.
+const SYSTEM_PROMPT = `
+You are a narrative AI for an interactive storytelling game based off "Tokyo Rebels." 
+
+Your job is to continue a dark cyberpunk storyline set in a post-apocalyptic Tokyo devastated by a mutagenic event known as the Red Mist. Players make decisions at each step that shape the story.
+
+Lore:
+- Karoshi Pharmaceuticals rules the city from Izori Ward
+- Senzaki Ward is home to the Commons and the vigilante Hunters
+- The Tokyo Ten are elite protectors resisting Karoshi's grip
+- Ghouls are mutated humans infected by the Red Mist
+- Players may encounter allies, enemies, relics, or betrayals
+Always stay consistent with this universe. Do not reference any events outside this setting.
+`;
+
+const CHARACTER = {
+  class: 'Rebel',
+  gender: 'Female',
+  background: 'Kuebiko Workshop',
+  weapon: 'Bo Staff (Fire)',
+  skin: 'Coral',
+  tattoo: 'Cherry',
+  eyes: 'Feminine Neutral (Fire)',
+  mouth: 'Smirk',
+  hair: 'Short (Acid)',
+  clothes: 'Headphones',
+  mask: 'Gasmask (Acid)',
+  eyewear: 'Punk (Acid)',
+};
+
+const xCHARS = `"Class: Rebel","Gender: Female","Background: Kuebiko Workshop","Weapon: Bo Staff (Fire)","Skin: Coral","Tattoo: Cherry","Eyes: Feminine Neutral (Fire)","Mouth: Smirk","Hair: Short (Acid)","Clothes: Headphones","Mask: Gasmask (Acid)","Eyewear: Punk (Acid)"`;
+
+const xINITPROMPT = `Write me the first two paragrahps of a Choose Your Own Adventure style story. The Main Character is a Rebel. The Main Character has specific Characteristics that define them. Do not list any options in the Intro.
 
 Main Character (the reader): You will serve as a key to build, converse and grow within the universe. Left to pick up the pieces of our past, we call upon you, citizens, to forge whatever future is left for us.
 
-Main Character Characteristics: ${CHARS}
+Main Character Characteristics: ${xCHARS}
 
 State of World: Post-apocalyptic Neo Tokyo. Ghouls and uprisings abound. Dangerous, poisonous red mist lurks in the air.
 
@@ -29,7 +64,15 @@ Plot: The infiltration operation is live Rebel. The defenses are strong, and the
 Intro:
 `;
 
-const IMGPROMPT = `A scene in Neo Tokyo that has been overrun with deadly red mist and in the center is an enemy base with a main front entrance guarded by ghouls, but off to the side is a secret entrance. Create this in an Anime style graphic.`;
+const INITPROMPT = `
+  You are the main character in this mission.
+
+  Mission Briefing:
+  The infiltration operation is live, Rebel. The defenses are strong, and there are ghoul hordes in the area. Your objective is to get inside the compound and retrieve the enemy intel. Make your decisions wisely — there will be much risk. You and your team's lives depend on it.
+
+  Instructions:
+  Begin the story with a tense and immersive scene that follows the mission briefing above. Use the character's abilities and gear in the action. Include relevant lore naturally (e.g., ghoul behavior, Karoshi tech, mist conditions). Do not ask the user questions.
+`;
 
 function parseOptions(text) {
   try {
@@ -56,24 +99,10 @@ function parseOptions(text) {
   return null;
 }
 
-// const response = await openai.responses.create({
-//     model: "o4-mini",
-//     reasoning: { effort: "medium" },
-//     input: [
-//         {
-//             role: "user",
-//             content: prompt,
-//         },
-//     ],
-// });
-
-// console.log(response.output_text);
-
-function generate(prompt) {
+function xgenerate(prompt) {
   console.log('_____generating....______');
   return openai.responses.create({
     model: 'o4-mini',
-    // input: prompt,
     input: [
       {
         role: 'user',
@@ -82,117 +111,171 @@ function generate(prompt) {
     ],
   });
 }
-//   return OPENAI.chat.completions.create({
-//     model: 'gpt-3.5-turbo',
-//     // model: 'gpt-4',
-//     messages: [
-//       {
-//         role: 'user',
-//         content: prompt,
-//       },
-//     ],
-//   });
-// }
 
-// async function generateImage(prompt) {
-//   const img = await OPENAI.images.generate({
-//     prompt: prompt,
-//     size: '512x512',
-//   });
-//   return img.data[0].url;
-// }
+function buildPrompt(storyState) {
+  // const storyState = {
+  //   storySoFar: content,
+  //   choices: [],
+  // };
+  // @todo setup this format
+  const storySummary = storyState.storySoFar;
+  // const storySummary = storyState.storySoFar.join('\n');
+  const lastChoice = storyState.choice;
+
+  console.log('...story', storySummary);
+  console.log('...choice', lastChoice);
+
+  return `
+    Main Character:
+    ${Object.keys(CHARACTER).reduce(
+      (acc, curr) => acc + `${curr}: ${CHARACTER[curr]}\n`,
+      ''
+    )}
+
+    Story so far:
+    ${storySummary}
+
+    ${lastChoice ? `Last choice: ${lastChoice}` : ``}}
+
+    Continue the story, making sure to reflect the main character's abilities, gear, and personality in the scene. 
+    
+    Return ONLY a single valid JSON object and nothing else.
+    
+    Important:
+    - Escape all newlines as \n
+    - Escape all double quotes inside strings as \"
+    - Do NOT include Markdown, extra formatting, or newlines outside the string
+    - Respond with valid JSON that can be parsed by JSON.parse()
+
+    Use this exact structure:
+    {
+      "scene": "The scene here, use '\n' to indicate line breaks in this string. Do NOT add actual line breaks or formatting.",
+      "choices": {
+        "A": "First choice text",
+        "B": "Second choice text"
+      }
+    }
+  `;
+}
+
+function parseJSONResponse(response) {
+  console.log(response);
+  try {
+    const parsed = JSON.parse(response);
+    return {
+      scene: parsed.scene,
+      choices: parsed.choices,
+    };
+  } catch (err) {
+    throw new Error('Failed to parse GPT response as JSON');
+  }
+}
+
+const getNextStoryScene = async (storyState) => {
+  // const storyState = {
+  //   storySoFar: content,
+  //   choices: [],
+  // };
+  const messages = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    { role: 'user', content: buildPrompt(storyState) }, //@todo playerstate
+  ];
+
+  const completion = await openai.chat.completions.create({
+    model: 'gpt-4-turbo',
+    messages,
+    temperature: 0.8,
+  });
+
+  return completion.choices[0].message.content;
+};
+
+const simpleGenerate = async (prompt) => {
+  const completion = await openai.chat.completions.create({
+    model: 'gpt-4-turbo',
+    messages: [{ role: 'user', content: prompt }],
+    temperature: 0.8,
+  });
+
+  return completion.choices[0].message.content;
+};
 
 const handler = async (req, res) => {
   if (req.method !== 'POST')
     return res.status(405).json({ message: `must use POST` });
-  // export async function POST(req) {
-  console.log('_____starting story gen______');
-  const DATA = req.body;
-  const INIT = DATA.content === 'init' ? true : false;
-  // console.log(DATA)
-  let content = INIT ? INITPROMPT : DATA.content;
-  if (!INIT) {
-    // console.log("STORY SO FAR \n\n", content)
-    content = `Continue the existing story below and write the next scene (3 paragraphs maximum) based off the Main Character's Last Decision. Remember to keep in mind the Main Character's Characteristics when writing the next scene:
-      
-      ${content}
-      
-      Main Character Characteristics: ${CHARS}
-      
-      Next Scene:
-      `;
-  }
-  const GENERATION = await generate(content);
-  // const REPLY = GENERATION.output[0].content[0].text;
-  const REPLY = GENERATION.output_text;
-  const TRANSFORMED = await transformations(REPLY);
 
-  // const IMGRESP = await fetch(`${baseUrl}/api/image`, {
-  //     method: 'POST',
-  //     headers: {
-  //         'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(`A scene in Neo Tokyo that has been overrun with deadly red mist and in the center is an enemy base with a main front entrance guarded by ghouls, but off to the side is a secret entrance. Create this in an Anime style graphic --ar 7:4 --q .25`)
-  // });
-  // const IMGDATA = await IMGRESP.json();
-  // const { image } = IMGDATA;
+  console.log('_____starting story gen______');
+  let { init, content, choice } = req.body;
+  if (init) content = INITPROMPT;
+  // let content = INIT ? INITPROMPT : DATA.content;
+  const storyState = {
+    storySoFar: content,
+    choice,
+  };
+
+  // if (!init) {
+  //   content = `Continue the existing story below and write the next scene (3 paragraphs maximum) based off the Main Character's Last Decision. Remember to keep in mind the Main Character's Characteristics when writing the next scene:
+
+  //     ${content}
+
+  //     Main Character Characteristics: ${xCHARS}
+
+  //     Next Scene:
+  //     `;
+  // }
+
+  const generation = await getNextStoryScene(storyState);
+  const parsed = parseJSONResponse(generation);
+  // const GENERATION = await generate(content);
+  // const REPLY = GENERATION.output_text;
+  // const TRANSFORMED = await transformations(REPLY);
 
   let ending = false;
-  if (!INIT) {
-    const ENDING_PROMPT = `Based off the Previous story Scene, was the main objective of retrieving the enemy intel met? Only reply with YES or NO.
+  if (!init) {
+    const ENDING_PROMPT = `Based off the Previous story Scene, was the main objective of retrieving the enemy intel met, did the user obtain the intel or do they still have to choose? Only reply with YES or NO.
         
-        Previous Scene: ${TRANSFORMED}
+        Previous Scene: ${parsed.scene}
         `;
 
-    const DATA = await generate(ENDING_PROMPT);
-    // ending = DATA.output[0].content[0].text === 'YES';
-    ending = DATA.output_text === 'YES';
+    const check = await simpleGenerate(ENDING_PROMPT);
+    console.log('check::::::::', check);
+    ending = check === 'YES';
   }
 
-  let choices;
-  if (!ending || INIT) {
-    const CHOICESPROMPT = `Take the scene below and craft two short next-step choices.
-Return ONLY a JSON object in this exact format:
-{"Option1":"<10 words or less>","Option2":"<10 words or less>"}
-Do not include any other text or formatting.
+  // let choices;
+  //   if (!ending || !init) {
+  //     const CHOICESPROMPT = `Take the scene below and craft two short next-step choices.
+  // Return ONLY a JSON object in this exact format:
+  // {"Option1":"<10 words or less>","Option2":"<10 words or less>"}
+  // Do not include any other text or formatting.
 
-Scene: ${TRANSFORMED}`;
+  // Scene: ${TRANSFORMED}`;
 
-    let attempts = 0;
-    let parsed = null;
-    while (!parsed && attempts < 5) {
-      const DATA = await generate(CHOICESPROMPT);
-      const text = DATA.output_text.trim();
-      parsed = parseOptions(text);
-      attempts++;
-    }
-    choices = parsed;
-  }
+  //     let attempts = 0;
+  //     let parsed = null;
+  //     while (!parsed && attempts < 5) {
+  //       const DATA = await generate(CHOICESPROMPT);
+  //       const text = DATA.output_text.trim();
+  //       parsed = parseOptions(text);
+  //       attempts++;
+  //     }
+  //     choices = parsed;
+  //   }
 
-  const IMG_PROMPT_GEN = `Based off the Previous story Scene describe the environment and what action is occurring. 50 words maximum. No periods:
-
-    Previous Scene: ${TRANSFORMED}
-    `;
-  const IMG_PROMPT_GEN_DATA = await generate(IMG_PROMPT_GEN);
-  // const IMAGEPROMPT = await IMG_PROMPT_GEN_DATA.output[0].content[0].text;
-  const IMAGEPROMPT = IMG_PROMPT_GEN_DATA.output_text;
+  const IMG_PROMPT = `Based off the story Scene describe the environment and what action is occurring. 50 words maximum. No periods:
+  Previous Scene: ${parsed.scene}`;
+  const IMG_PROMPT_GEN = await simpleGenerate(IMG_PROMPT);
+  console.log('img:::::', IMG_PROMPT_GEN);
+  // const IMAGEPROMPT = IMG_PROMPT_GEN_DATA.output_text;
 
   console.log('_____end story gen______');
   return res.status(200).json({
-    output: TRANSFORMED,
-    outputOptions: choices || {},
+    output: parsed.scene,
+    outputOptions: parsed.choices || {},
     ending: ending,
-    imagePrompt: IMAGEPROMPT,
+    imagePrompt: IMG_PROMPT_GEN,
+    // imagePrompt: IMAGEPROMPT ,
   });
-  // return NextResponse.json(
-  //   {
-  //     output: TRANSFORMED,
-  //     outputOptions: choices || {},
-  //     ending: ending,
-  //     imagePrompt: IMAGEPROMPT,
-  //   },
-  //   { status: 200 }
-  // );
 };
 
 export default handler;

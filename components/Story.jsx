@@ -4,7 +4,6 @@
 ⌙ main story builder
 */
 
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import FancyLoader from 'components/FancyLoader'
 
@@ -17,6 +16,19 @@ const Button = ({ children, action, className, disabled }) => (
 const Break = () => (<center className="mb-5">* * * * *</center>);
 
 const LoadingImage = () => (<div className="flex justify-center w-full h-[200px] border border-white overflow-hidden items-center animate-loading">[loading image...]</div>)
+
+// interface PlayerStoryState {
+//   userId: string;
+//   storySoFar: string[]; // Array of paragraph summaries
+//   fullHistory: string[]; // Optional full logs
+//   choices: {
+//     step: number;
+//     choice: 'A' | 'B';
+//     prompt: string;
+//     outcome: string;
+//   }[];
+//   currentStep: number;
+// }
 
 const Story = () => {
     const [broke, setBroke] = useState(false)
@@ -34,7 +46,7 @@ const Story = () => {
     // https://cdn.midjourney.com/437305b4-5208-408c-bbcc-7cfe67eeb8b9/0_0.png
 
     useEffect(() => {
-        !started && generate('init')
+        !started && generate('',true)
     }, [])
 
     // useEffect(() => {
@@ -81,15 +93,16 @@ const Story = () => {
         setImages([])
     }
 
-    const generate = async (body) => {
+    const generate = async (choice = null, init = false) => {
         setLoading(true);
-
+        // const init = body === 'init';
         let storyObj = {};
+
         try {
             const response = await fetch('/api/storygen', {
                 method: 'POST',
                 headers: HEADERS,
-                body: JSON.stringify({content:body})
+                body: JSON.stringify({content:storyLine, choice, init})
             });
             storyObj = await response.json();
         } catch(e) {
@@ -97,32 +110,33 @@ const Story = () => {
         }
 
         const { output, outputOptions, ending, imagePrompt } = storyObj;
-        if(!output || !outputOptions.Option1 || !imagePrompt) {
+        
+        if(!output || !outputOptions.A || !imagePrompt) {
             setBroke(true);
             console.error({output,outputOptions,imagePrompt})
             return;
         }
         
-        if (body === 'init') {
-            setOptions([...options, outputOptions])
-            setStoryLine([...storyLine, output])
-            Object.keys(outputOptions).map(i => {
-                handleChoice(outputOptions[i])
-            })
-            //delay image gen for after setting these ^
+        setOptions([...options, outputOptions])
+        setStoryLine([...storyLine, output])
+        // if (init) {
+        //     // Object.keys(outputOptions).map(i => {
+        //     //     handleChoice(outputOptions[i])
+        //     // })
+        //     //delay image gen for after setting these ^
             const image = await generateImage(imagePrompt)
             setImages([...images, image])
-        } else {
-            const image = await generateImage(imagePrompt)
-            const nextSegment = {
-                story: output,
-                options: outputOptions,
-                image: image
-            }
-            //need to pass prev state to avoid asyncronous overwriting!
-            setNextStoryLine((prevNextStoryLine) => [...prevNextStoryLine, nextSegment]);
+        // } else {
+        //     // const image = await generateImage(imagePrompt)
+        //     const nextSegment = {
+        //         story: output,
+        //         options: outputOptions,
+        //         // image: image
+        //     }
+        //     //need to pass prev state to avoid asyncronous overwriting!
+        //     setNextStoryLine((prevNextStoryLine) => [...prevNextStoryLine, nextSegment]);
             setEnd(ending)
-        }
+        // }
 
         // const notif = new Audio('/notif.m4a');
         // notif.volume = 0.5;
@@ -133,12 +147,12 @@ const Story = () => {
 
     const generateImage = async (body) => {
         try {
-            const IMGRESP = await fetch('/api/imagegen', {
+            const response = await fetch('/api/imagegen', {
                 method: 'POST',
                 headers: HEADERS,
                 body: JSON.stringify(`${body}`)
             });
-            const {image} = await IMGRESP.json();
+            const {image} = await response.json();
             return image;
         } catch(e) {
             console.error(JSON.stringify(e))
@@ -147,12 +161,20 @@ const Story = () => {
 
     const handleChoice = (choice, set) => {
         const BODY = `${storyLine} \n\n Last Decision: ${choice}`
-        generate(BODY)
+        generate(storyLine)
         // setChoices([...choices, choice])
         // setStep(step + 1)
     }
 
-    const selectChoice = (choice) => {
+    const selectChoice = choice => {
+        // generate(`${storyLine} \n\n Last Decision: ${choice}`)
+        const _choices = [...choices, choice];
+        setChoices(_choices);
+        generate(choice);
+        setStep(step + 1);
+    }
+
+    const xselectChoice = (choice) => {
         //either 0 or 1
         if (!nextStoryLine.length) {
             setLoading(true);
@@ -216,11 +238,11 @@ const Story = () => {
                         <br />
                         <span className="text-red-600">/{i + 1}</span>
                     </p>
-                    <div className="m-2 p-4">
+                    {!end && <div className="m-2 p-4">
                         {Object.keys(options[i]).map((c, j) => {
-                            return <Button key={`options-${i}-${j}`} action={() => selectChoice(j)} className={(choices[i] === options[i][c] ? "text-red-600 !border-red-600 opacity-80 choice " : "") + "text-left"} disabled={loading || step != i + 1}>{options[i][c]}</Button>;
+                            return <Button key={`options-${i}-${j}`} action={() => selectChoice(options[i][c])} className={(choices[i] === options[i][c] ? "text-red-600 !border-red-600 opacity-80 choice " : "") + "text-left"} disabled={loading || step != i + 1}>{options[i][c]}</Button>;
                         })}
-                    </div>
+                    </div>}
                 </div>
             })}
 

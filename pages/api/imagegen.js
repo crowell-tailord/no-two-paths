@@ -4,14 +4,8 @@
 ⌙ the chatGPT images
 */
 
-// import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import fs from 'fs';
-
-const baseUrl = process.env.VERCEL_URL
-  ? 'https://' + process.env.VERCEL_URL
-  : 'http://localhost:3000';
-
+// import fs from 'fs';
 const openai = new OpenAI();
 
 const CHARACTER = `Main female Character with her fiery bo staff, who has coral colored skin and a cherry tattoo, her eyes are fiery and a smirk on her face, short acid colored hair fluttering in the wind, wearing headphones and a acid colored gasmask and punk-styled, spiked acid colored goggles`;
@@ -41,12 +35,12 @@ async function generate(prompt) {
 const handler = async (req, res) => {
   if (req.method !== 'POST')
     return res.status(405).json({ message: `must use POST` });
-  // export async function POST(req) {
+
   const ENVIRONMENT_EVENT = req.body;
   if (!ENVIRONMENT_EVENT)
     return res.status(500).json({ message: 'no text found for image' });
 
-  const PROMPT = `create an image of ${ENVIRONMENT_EVENT} and the ${CHARACTER} is in the scene in the style of ${DESCRIBERS}`;
+  const PROMPT = `create an image of ${ENVIRONMENT_EVENT} and the ${CHARACTER} in the scene in the style of ${DESCRIBERS}`;
 
   const response = await generate(PROMPT);
 
@@ -54,12 +48,6 @@ const handler = async (req, res) => {
   return res.status(200).json({
     image: response,
   });
-  // return NextResponse.json(
-  //   {
-  //     image: response,
-  //   },
-  //   { status: 200 }
-  // );
 };
 
 export default handler;

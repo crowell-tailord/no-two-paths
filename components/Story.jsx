@@ -231,7 +231,7 @@ const Story = () => {
             {started && storyLine && storyLine.map((s, i) => {
                 return <div key={`scene-${i}`} id={`scene-${i}`}>
                     <Break />
-                    {images[i] ? <img src={`data:image/png;base64, ${images[i]}`} width={740} className="border border-white" /> : <LoadingImage />}
+                    {images[i] ? <img src={`data:image/jpeg;base64, ${images[i]}`} width={740} className="border border-white" /> : <LoadingImage />}
                     {/* {images[i] ? <Image src={images[i]} width={740} height={420} alt={`storyimage-${i}`} quality={60} className="border border-white" /> : <LoadingImage />} */}
                     <p className="text-justify mb-5 whitespace-pre-wrap">
                         {s}

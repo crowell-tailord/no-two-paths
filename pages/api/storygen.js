@@ -37,32 +37,42 @@ Always stay consistent with this universe. Do not reference any events outside t
 const CHARACTER = {
   class: 'Rebel',
   gender: 'Female',
-  background: 'Kuebiko Workshop',
-  weapon: 'Bo Staff (Fire)',
-  skin: 'Coral',
+  originLocation: 'Kuebiko Workshop',
+  weapon: 'Bo Staff',
+  weaponColor: 'Fire',
+  skinColor: 'Coral',
   tattoo: 'Cherry',
-  eyes: 'Feminine Neutral (Fire)',
+  eyes: 'Feminine Neutral',
+  eyeColor: 'Fire',
   mouth: 'Smirk',
-  hair: 'Short (Acid)',
+  hair: 'Short',
+  hairColor: 'Acid',
   clothes: 'Headphones',
-  mask: 'Gasmask (Acid)',
-  eyewear: 'Punk (Acid)',
+  mask: 'Gasmask',
+  maskColor: 'Acid',
+  eyewear: 'Punk',
+  eyewearColor: 'Acid',
 };
 
-const xCHARS = `"Class: Rebel","Gender: Female","Background: Kuebiko Workshop","Weapon: Bo Staff (Fire)","Skin: Coral","Tattoo: Cherry","Eyes: Feminine Neutral (Fire)","Mouth: Smirk","Hair: Short (Acid)","Clothes: Headphones","Mask: Gasmask (Acid)","Eyewear: Punk (Acid)"`;
+const CHARACTER_STRING = Object.keys(CHARACTER).reduce(
+  (string, trait) => string + `${trait}: ${CHARACTER[trait]}, `,
+  ''
+);
 
-const xINITPROMPT = `Write me the first two paragrahps of a Choose Your Own Adventure style story. The Main Character is a Rebel. The Main Character has specific Characteristics that define them. Do not list any options in the Intro.
+// const xCHARS = `"Class: Rebel","Gender: Female","Background: Kuebiko Workshop","Weapon: Bo Staff (Fire)","Skin: Coral","Tattoo: Cherry","Eyes: Feminine Neutral (Fire)","Mouth: Smirk","Hair: Short (Acid)","Clothes: Headphones","Mask: Gasmask (Acid)","Eyewear: Punk (Acid)"`;
 
-Main Character (the reader): You will serve as a key to build, converse and grow within the universe. Left to pick up the pieces of our past, we call upon you, citizens, to forge whatever future is left for us.
+// const xINITPROMPT = `Write me the first two paragrahps of a Choose Your Own Adventure style story. The Main Character is a Rebel. The Main Character has specific Characteristics that define them. Do not list any options in the Intro.
 
-Main Character Characteristics: ${xCHARS}
+// Main Character (the reader): You will serve as a key to build, converse and grow within the universe. Left to pick up the pieces of our past, we call upon you, citizens, to forge whatever future is left for us.
 
-State of World: Post-apocalyptic Neo Tokyo. Ghouls and uprisings abound. Dangerous, poisonous red mist lurks in the air.
+// Main Character Characteristics: ${xCHARS}
 
-Plot: The infiltration operation is live Rebel. The defenses are strong, and there are ghoul hordes in the area. Your objective is to get inside the compound and retrieve the enemy intel. Make your decisions wisely, there will be much risk. You and your team's lives depends on it.
+// State of World: Post-apocalyptic Neo Tokyo. Ghouls and uprisings abound. Dangerous, poisonous red mist lurks in the air.
 
-Intro:
-`;
+// Plot: The infiltration operation is live Rebel. The defenses are strong, and there are ghoul hordes in the area. Your objective is to get inside the compound and retrieve the enemy intel. Make your decisions wisely, there will be much risk. You and your team's lives depends on it.
+
+// Intro:
+// `;
 
 const INITPROMPT = `
   You are the main character in this mission.
@@ -126,11 +136,7 @@ function buildPrompt(storyState) {
   console.log('...choice', lastChoice);
 
   return `
-    Main Character:
-    ${Object.keys(CHARACTER).reduce(
-      (acc, curr) => acc + `${curr}: ${CHARACTER[curr]}\n`,
-      ''
-    )}
+    Main Character: ${CHARACTER_STRING}
 
     Story so far:
     ${storySummary}
@@ -262,11 +268,15 @@ const handler = async (req, res) => {
   //     choices = parsed;
   //   }
 
-  const IMG_PROMPT = `Based off the story Scene describe the environment and what action is occurring. 50 words maximum. No periods:
-  Previous Scene: ${parsed.scene}`;
-  const IMG_PROMPT_GEN = await simpleGenerate(IMG_PROMPT);
+  const IMG_PROMPT = `Describe the environment, overall scene and what action is occurring for an image prompt generation. Depict the Main Character performing the action. 100 words maximum. No periods.
+  Scene: ${parsed.scene}
+  Main Character: ${CHARACTER_STRING}
+  Action: ${choice}
+  `;
+  // const DESCRIBERS = `award-winning photo realism anime style, Cinematic lighting, mid-action pose, dynamic angle`;
+  let IMG_PROMPT_GEN = await simpleGenerate(IMG_PROMPT);
+  IMG_PROMPT_GEN += `Main Character Traits: [${CHARACTER_STRING}]`;
   console.log('img:::::', IMG_PROMPT_GEN);
-  // const IMAGEPROMPT = IMG_PROMPT_GEN_DATA.output_text;
 
   console.log('_____end story gen______');
   return res.status(200).json({
@@ -274,7 +284,6 @@ const handler = async (req, res) => {
     outputOptions: parsed.choices || {},
     ending: ending,
     imagePrompt: IMG_PROMPT_GEN,
-    // imagePrompt: IMAGEPROMPT ,
   });
 };
 
